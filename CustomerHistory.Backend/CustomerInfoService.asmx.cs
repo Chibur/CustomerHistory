@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using CustomerHistory.Backend.DataAccessLayer;
 using CustomerHistory.Backend.Models;
 
 
@@ -28,7 +29,7 @@ namespace CustomerHistory.Backend
         [WebMethod]
         public CustomerInfo customerInfo(int id)
         {
-            return new CustomerInfo(id);
+            return (new CustomerInfoAccess).read(id);
         }
     }
 }

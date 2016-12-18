@@ -10,6 +10,7 @@ namespace CustomerHistory.Backend.DataAccessLayer
     {
         public CustomerInfoAccess() { }
         
+
         public CustomerInfo read(int id)
         {
             CustomerInfo info = new CustomerInfo(id);
