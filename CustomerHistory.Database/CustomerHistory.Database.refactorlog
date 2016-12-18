@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="01f1436b-7003-49c7-bf50-8c214d048a0b" ChangeDateTime="12/18/2016 13:28:00">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_INFO].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_INFO]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dce5976d-8825-468f-a620-1b1bb277f6c9" ChangeDateTime="12/18/2016 13:31:39">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_ACCOUNTS].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_ACCOUNTS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d11e6f69-1c58-40af-b3fb-b2af8d9d9fd6" ChangeDateTime="12/18/2016 13:38:24">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="66ee8ebd-5e75-4198-941b-56fd8a15bc4f" ChangeDateTime="12/18/2016 13:39:08">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS].[ACCOUNT_FROM]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ACCOUNT_TO" />
+  </Operation>
+</Operations>
