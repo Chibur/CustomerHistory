@@ -28,4 +28,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ACCOUNT_TO" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="8e8b7493-2526-4295-bd0e-55386766ea7f" ChangeDateTime="01/02/2017 17:16:37">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS].[CUSTOMER_ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CUSTOMER_ID_FROM" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="eb07bab2-6dd8-47a1-8320-c1d20d6d5eea" ChangeDateTime="01/02/2017 17:16:47">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS].[ACCOUNT_ID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ACCOUNT_ID_FROM" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8a12d54b-15ff-40f2-b530-ea76329da750" ChangeDateTime="01/02/2017 17:18:39">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS].[ACCOUNT_ID_FROM]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_TRANSACTIONS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ACCOUNT_ID_TO" />
+  </Operation>
 </Operations>
