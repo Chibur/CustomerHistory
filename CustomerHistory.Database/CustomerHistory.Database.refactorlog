@@ -49,4 +49,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ACCOUNT_ID_TO" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e50d415d-4349-4cd9-babd-2cca71377441" ChangeDateTime="01/02/2017 19:23:56">
+    <Property Name="ElementName" Value="[dbo].[CUSTOMER_ACCOUNTS].[CURENCY]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CUSTOMER_ACCOUNTS]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CURRENCY" />
+  </Operation>
 </Operations>
