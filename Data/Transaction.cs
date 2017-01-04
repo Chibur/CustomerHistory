@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data
 {
-    class CustomerTransaction
+    class Transaction
     {
         public int Id { get; set; }
         public int AccountFromId { get; set; }

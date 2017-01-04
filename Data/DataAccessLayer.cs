@@ -20,7 +20,7 @@ namespace Data
             _connection.ConnectionString = "Driver={SQL Server}; Server={}; Database=CustomerPayments.Database; Integrated Security = False"; 
         }
 
-        public CustomerInfo GetCustomer(int Id)
+        public Customer GetCustomer(int Id)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Data
                 DataTable dt = data.Tables[0];
                 // map all the fields
                 //string id = dt.Rows[0]["ID"].ToString();
-                return new CustomerInfo();
+                return new Customer();
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@ namespace Data
             
         }
 
-        public bool CreateCustomer(CustomerInfo customer)
+        public bool CreateCustomer(Customer customer)
         {
             try
             {

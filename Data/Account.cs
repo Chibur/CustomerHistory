@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Data
 {
     
-    class CustomerAccounts
+    class Account
     {
         public int Id { get; set; }
         public string AccountNumber { get; set; }

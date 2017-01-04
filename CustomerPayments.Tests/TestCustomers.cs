@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CustomerPayments.Tests
 {
     [TestFixture]
-    public class TestInfo
+    public class TestCustomers
     {
         [Test]
         public void TestMethod()
