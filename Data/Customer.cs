@@ -14,6 +14,6 @@ namespace CustomerPayments.Data
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public DateTime Birthdate { get; set; }
-        public DateTime LastModified { get; set; }
+        public byte[] LastModified { get; set; }
     }
 }

@@ -59,9 +59,9 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="CUSTOMER_INFO.sql" />
-    <Build Include="CUSTOMER_ACCOUNTS.sql" />
-    <Build Include="CUSTOMER_TRANSACTIONS.sql" />
+    <Build Include="Customer.sql" />
+    <Build Include="Account.sql" />
+    <Build Include="Transaction.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CustomerHistory.Database.refactorlog" />
