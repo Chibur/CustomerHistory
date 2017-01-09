@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.DTO
+namespace CustomerPayments.DataModel.Repositories
 {
-    public enum AccountType
+    interface IGenericRepository
     {
-        Credit,
-        Debit
     }
 }

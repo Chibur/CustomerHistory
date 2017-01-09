@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="CustomerPaymentsContext.cs" />
     <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Helpers\TestData.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
     <Compile Include="Migrations\201701091028311_initial.cs" />
     <Compile Include="Migrations\201701091028311_initial.Designer.cs">
@@ -69,11 +70,19 @@
     <Compile Include="Migrations\201701091207097_TakeIsDirtyOut.Designer.cs">
       <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701091605193_testdata.cs" />
+    <Compile Include="Migrations\201701091605193_testdata.Designer.cs">
+      <DependentUpon>201701091605193_testdata.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\ICustomerEFRepository.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,7 +101,11 @@
     <EmbeddedResource Include="Migrations\201701091207097_TakeIsDirtyOut.resx">
       <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701091605193_testdata.resx">
+      <DependentUpon>201701091605193_testdata.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

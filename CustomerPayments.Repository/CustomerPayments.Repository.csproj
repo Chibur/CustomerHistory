@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CustomerPayments.Repository</RootNamespace>
     <AssemblyName>CustomerPayments.Repository</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,7 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\CustomerPayments.Data.csproj">
+    <ProjectReference Include="..\Data\CustomerPayments.DTO.csproj">
       <Project>{1a1e808b-00a7-495e-bf0f-2d0c7172931b}</Project>
       <Name>CustomerPayments.Data</Name>
     </ProjectReference>

@@ -15,7 +15,7 @@ namespace CustomerPayments.DataModel
     {
         public Customer()
         {
-            Accounts = new HashSet<Account>();
+            Accounts = new List<Account>();
         }
 
         public int Id { get; set; }
@@ -37,7 +37,7 @@ namespace CustomerPayments.DataModel
         [Column(TypeName = "date")]
         public DateTime Birthdate { get; set; }
 
-        public ICollection<Account> Accounts { get; set; }
+        public List<Account> Accounts { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

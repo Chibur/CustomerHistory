@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.Data", "Data\CustomerPayments.Data.csproj", "{1A1E808B-00A7-495E-BF0F-2D0C7172931B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.DTO", "Data\CustomerPayments.DTO.csproj", "{1A1E808B-00A7-495E-BF0F-2D0C7172931B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.Tests", "CustomerPayments.Tests\CustomerPayments.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 
-namespace CustomerPayments.Data
+namespace CustomerPayments.DTO
 {
     class DataAccessLayer
     {

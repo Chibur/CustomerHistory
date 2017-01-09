@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CustomerPayments.DataModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.DataModel.Interfaces;
 
 namespace CustomerPayments.DataModel
 {
@@ -14,7 +14,7 @@ namespace CustomerPayments.DataModel
     {
         public Account()
         {
-            Transacions = new HashSet<Transaction>();
+            Transacions = new List<Transaction>();
         }
 
         public int Id { get; set; }
@@ -32,7 +32,7 @@ namespace CustomerPayments.DataModel
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
 
-        public ICollection<Transaction> Transacions { get; set; }
+        public List<Transaction> Transacions { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

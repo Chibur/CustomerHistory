@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.Data
+namespace CustomerPayments.DTO
 {
     public class Customer
     {
@@ -14,6 +14,5 @@ namespace CustomerPayments.Data
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public DateTime Birthdate { get; set; }
-        public byte[] LastModified { get; set; }
     }
 }

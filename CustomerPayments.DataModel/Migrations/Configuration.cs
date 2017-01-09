@@ -4,6 +4,7 @@ namespace CustomerPayments.DataModel.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using DataModel.Helpers;
 
     internal sealed class Configuration : DbMigrationsConfiguration<CustomerPayments.DataModel.CustomerPaymentsContext>
     {
@@ -14,6 +15,7 @@ namespace CustomerPayments.DataModel.Migrations
 
         protected override void Seed(CustomerPayments.DataModel.CustomerPaymentsContext context)
         {
+            TestData.NewDbWithSeed();
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
