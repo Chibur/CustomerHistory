@@ -54,26 +54,6 @@
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Helpers\TestData.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
-    <Compile Include="Migrations\201701091028311_initial.cs" />
-    <Compile Include="Migrations\201701091028311_initial.Designer.cs">
-      <DependentUpon>201701091028311_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701091124433_HistoryLogging.cs" />
-    <Compile Include="Migrations\201701091124433_HistoryLogging.Designer.cs">
-      <DependentUpon>201701091124433_HistoryLogging.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701091127171_AccountNumberFix.cs" />
-    <Compile Include="Migrations\201701091127171_AccountNumberFix.Designer.cs">
-      <DependentUpon>201701091127171_AccountNumberFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701091207097_TakeIsDirtyOut.cs" />
-    <Compile Include="Migrations\201701091207097_TakeIsDirtyOut.Designer.cs">
-      <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701091605193_testdata.cs" />
-    <Compile Include="Migrations\201701091605193_testdata.Designer.cs">
-      <DependentUpon>201701091605193_testdata.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -87,23 +67,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701091028311_initial.resx">
-      <DependentUpon>201701091028311_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701091124433_HistoryLogging.resx">
-      <DependentUpon>201701091124433_HistoryLogging.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701091127171_AccountNumberFix.resx">
-      <DependentUpon>201701091127171_AccountNumberFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701091207097_TakeIsDirtyOut.resx">
-      <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701091605193_testdata.resx">
-      <DependentUpon>201701091605193_testdata.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
