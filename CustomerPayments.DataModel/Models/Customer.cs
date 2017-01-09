@@ -6,11 +6,12 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CustomerPayments.DataModel.Interfaces;
 
 namespace CustomerPayments.DataModel
 {
     [Table("Customers")]
-    public class Customer
+    public class Customer: IModificationHistory
     {
         public Customer()
         {
@@ -36,9 +37,10 @@ namespace CustomerPayments.DataModel
         [Column(TypeName = "date")]
         public DateTime Birthdate { get; set; }
 
-        [Timestamp]
-        public byte[] LastModified { get; set; }
+        public ICollection<Account> Accounts { get; set; }
 
-        public virtual ICollection<Account> Accounts { get; set; } // could be handy
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public bool IsDirty { get; set; }
     }
 }

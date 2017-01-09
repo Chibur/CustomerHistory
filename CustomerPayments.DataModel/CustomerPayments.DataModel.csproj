@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CustomerPayments.DataModel</RootNamespace>
     <AssemblyName>CustomerPayments.DataModel</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,13 +52,22 @@
   <ItemGroup>
     <Compile Include="CustomerPaymentsContext.cs" />
     <Compile Include="Enums\AccountType.cs" />
-    <Compile Include="Migrations\201701081614300_initial.cs" />
-    <Compile Include="Migrations\201701081614300_initial.Designer.cs">
-      <DependentUpon>201701081614300_initial.cs</DependentUpon>
+    <Compile Include="Interfaces\IModificationHistory.cs" />
+    <Compile Include="Migrations\201701091028311_initial.cs" />
+    <Compile Include="Migrations\201701091028311_initial.Designer.cs">
+      <DependentUpon>201701091028311_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701081810428_initial1.cs" />
-    <Compile Include="Migrations\201701081810428_initial1.Designer.cs">
-      <DependentUpon>201701081810428_initial1.cs</DependentUpon>
+    <Compile Include="Migrations\201701091124433_HistoryLogging.cs" />
+    <Compile Include="Migrations\201701091124433_HistoryLogging.Designer.cs">
+      <DependentUpon>201701091124433_HistoryLogging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701091127171_AccountNumberFix.cs" />
+    <Compile Include="Migrations\201701091127171_AccountNumberFix.Designer.cs">
+      <DependentUpon>201701091127171_AccountNumberFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701091207097_TakeIsDirtyOut.cs" />
+    <Compile Include="Migrations\201701091207097_TakeIsDirtyOut.Designer.cs">
+      <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
@@ -70,17 +80,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\CustomerPayments.Data.csproj">
-      <Project>{1a1e808b-00a7-495e-bf0f-2d0c7172931b}</Project>
-      <Name>CustomerPayments.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701081614300_initial.resx">
-      <DependentUpon>201701081614300_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701091028311_initial.resx">
+      <DependentUpon>201701091028311_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701081810428_initial1.resx">
-      <DependentUpon>201701081810428_initial1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701091124433_HistoryLogging.resx">
+      <DependentUpon>201701091124433_HistoryLogging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701091127171_AccountNumberFix.resx">
+      <DependentUpon>201701091127171_AccountNumberFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701091207097_TakeIsDirtyOut.resx">
+      <DependentUpon>201701091207097_TakeIsDirtyOut.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

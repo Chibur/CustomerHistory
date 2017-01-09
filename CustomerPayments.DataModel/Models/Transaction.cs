@@ -5,16 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CustomerPayments.DataModel.Interfaces;
 
 namespace CustomerPayments.DataModel
 {
     [Table("Transactions")]
-    public class Transaction
+    public class Transaction: IModificationHistory
     {
         public int Id { get; set; }
-
-        [Timestamp]
-        public byte[] DateSubmitted { get; set; }
 
         [Column(TypeName = "money")]
         public decimal Amount { get; set; }
@@ -30,5 +28,10 @@ namespace CustomerPayments.DataModel
         public int AccountId { get; set; }
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
+
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
+        public bool IsDirty { get; set; }
+
     }
 }
