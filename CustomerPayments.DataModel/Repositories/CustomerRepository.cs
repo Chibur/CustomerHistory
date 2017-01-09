@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerPayments.DataModel.Repositories
 {
-    class CustomerRepository
+    public class CustomerRepository
     {
         public ICollection<Customer> GetCustomerWithAccounts()
         {
@@ -34,7 +34,7 @@ namespace CustomerPayments.DataModel.Repositories
             }
         }
 
-        public void SaveNewNinja(Customer customer)
+        public void SaveNewCustomer(Customer customer)
         {
             using (var context = new CustomerPaymentsContext())
             {

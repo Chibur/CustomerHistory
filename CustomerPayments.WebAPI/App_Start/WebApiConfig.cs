@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace CustomerPayments.Customers
+namespace CustomerPayments.WebAPI
 {
     public static class WebApiConfig
     {
@@ -22,4 +22,3 @@ namespace CustomerPayments.Customers
         }
     }
 }
-
