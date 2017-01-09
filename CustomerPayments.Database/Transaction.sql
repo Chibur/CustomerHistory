@@ -1,0 +1,14 @@
+﻿CREATE TABLE [dbo].[CUSTOMER_TRANSACTIONS]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [CustomerFrom_Id] INT NOT NULL, 
+    [AccountFrom_Id] INT NOT NULL,
+	[DateSubmitted] TIMESTAMP NOT NULL, 
+    [Amount] MONEY NOT NULL, 
+    [CustomerTo_Id] INT NOT NULL, 
+    [AccountTo_Id] INT NOT NULL, 
+    FOREIGN KEY ([CustomerFrom_Id]) REFERENCES CUSTOMER_INFO([Id]),
+	FOREIGN KEY ([AccountFrom_Id]) REFERENCES CUSTOMER_ACCOUNTS([Id]),
+	FOREIGN KEY ([CustomerTo_Id]) REFERENCES CUSTOMER_INFO([Id]),
+	FOREIGN KEY ([AccountTo_Id]) REFERENCES CUSTOMER_ACCOUNTS([Id])
+)
