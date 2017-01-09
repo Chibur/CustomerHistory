@@ -25,7 +25,7 @@ namespace CustomerPayments.DataModel
         [Required]
         public string BeneficiaryAccount { get; set; }
 
-        public int AccountId { get; set; }
+        public int? AccountId { get; set; }
         [ForeignKey("AccountId")]
         public virtual Account Account { get; set; }
 

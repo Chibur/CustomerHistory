@@ -28,7 +28,7 @@ namespace CustomerPayments.DataModel
         [Required]
         public AccountType AccountType { get; set; }
 
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
 
