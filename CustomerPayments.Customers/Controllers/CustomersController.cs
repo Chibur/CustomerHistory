@@ -36,7 +36,6 @@ namespace CustomerPayments.Customers.Controllers
             _repo.SaveNewCustomer(Customer);
         }
 
-
         public void Delete(int id)
         {
             _repo.DeleteCustomer(id);
