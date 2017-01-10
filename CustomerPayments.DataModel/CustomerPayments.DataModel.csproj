@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CustomerPayments.DataModel</RootNamespace>
     <AssemblyName>CustomerPayments.DataModel</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -54,18 +54,6 @@
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Helpers\TestData.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
-    <Compile Include="Migrations\201701091923323_seededDb.cs" />
-    <Compile Include="Migrations\201701091923323_seededDb.Designer.cs">
-      <DependentUpon>201701091923323_seededDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701091951041_seededDb1.cs" />
-    <Compile Include="Migrations\201701091951041_seededDb1.Designer.cs">
-      <DependentUpon>201701091951041_seededDb1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701092025515_seededDb11.cs" />
-    <Compile Include="Migrations\201701092025515_seededDb11.Designer.cs">
-      <DependentUpon>201701092025515_seededDb11.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -76,17 +64,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701091923323_seededDb.resx">
-      <DependentUpon>201701091923323_seededDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701091951041_seededDb1.resx">
-      <DependentUpon>201701091951041_seededDb1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701092025515_seededDb11.resx">
-      <DependentUpon>201701092025515_seededDb11.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,17 +1,27 @@
-﻿using System.Web.Http;
-using CustomerPayments.DataModel.Repositories;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Http;
 using CustomerPayments.DataModel;
+using CustomerPayments.DataModel.Repositories;
 using Newtonsoft.Json;
 
 namespace CustomerPayments.Customers.Controllers
 {
-    public class CustomerController: ApiController
+    public class CustomersController : ApiController
     {
         private readonly CustomerRepository _repo = new CustomerRepository();
 
         public Customer Get(int id)
         {
             return _repo.GetCustomerById(id);
+        }
+
+        public ICollection<Customer> GetAll()
+        {
+            return _repo.GetCustomerWithAccounts();
         }
 
         public void Post([FromBody] object customer)
