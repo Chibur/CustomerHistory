@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.DataModel"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.Customers", "CustomerPayments.Customers\CustomerPayments.Customers.csproj", "{485562EC-1A71-4758-9257-9A9EE1A3496B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.Data", "CustomerPayments.Data\CustomerPayments.Data.csproj", "{F4086D22-1651-4EDE-BFAA-270908152165}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerPayments.Domain", "CustomerPayments.Domain\CustomerPayments.Domain.csproj", "{2FAF5CBB-987F-44B3-BF92-3195E96137B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{485562EC-1A71-4758-9257-9A9EE1A3496B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485562EC-1A71-4758-9257-9A9EE1A3496B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485562EC-1A71-4758-9257-9A9EE1A3496B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4086D22-1651-4EDE-BFAA-270908152165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4086D22-1651-4EDE-BFAA-270908152165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4086D22-1651-4EDE-BFAA-270908152165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4086D22-1651-4EDE-BFAA-270908152165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FAF5CBB-987F-44B3-BF92-3195E96137B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FAF5CBB-987F-44B3-BF92-3195E96137B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FAF5CBB-987F-44B3-BF92-3195E96137B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FAF5CBB-987F-44B3-BF92-3195E96137B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
