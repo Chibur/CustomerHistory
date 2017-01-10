@@ -5,7 +5,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.Data.Models;
+using CustomerPayments.Domain.Entities;
 using CustomerPayments.Domain;
 using CustomerPayments.Domain.EF;
 

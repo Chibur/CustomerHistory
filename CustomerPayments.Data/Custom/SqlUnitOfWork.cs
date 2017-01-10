@@ -15,7 +15,7 @@ namespace CustomerPayments.Data.Custom
     public class SqlUnitOfWork: IUnitOfWork
     {
         SqlRepository<Customer> _customers = null;
-        readonly ObjectContext _context;
+        readonly CustomerPaymentsContext _context;
         const string ConnectionStringName = "EmployeeDataModelContainer";
 
         public SqlUnitOfWork()
@@ -25,11 +25,11 @@ namespace CustomerPayments.Data.Custom
                     .ConnectionStrings[ConnectionStringName]
                     .ConnectionString;
 
-            _context = new ObjectContext(connectionString);
-            _context.ContextOptions.LazyLoadingEnabled = true;
+            _context = new CustomerPaymentsContext(connectionString);
+            _context.Configuration.LazyLoadingEnabled = true;
         }
 
-        private IRepository<Customer> Customers
+        public IRepository<Customer> Customers
         {
             get
             {
@@ -38,14 +38,6 @@ namespace CustomerPayments.Data.Custom
                     _customers = new SqlRepository<Customer>(_context);
                 }
                 return _customers;
-            }
-        }
-
-        IRepository<Customer> IUnitOfWork.Customers
-        {
-            get
-            {
-                throw new NotImplementedException();
             }
         }
 

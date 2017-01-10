@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,10 +13,10 @@ namespace CustomerPayments.Data.Custom
     public class SqlRepository<T> : IRepository<T>
                                     where T :class, IEntity
     {
-        protected ObjectSet<T> _objectSet;
-        public SqlRepository(ObjectContext contex)
+        protected DbSet<T> _objectSet;
+        public SqlRepository(CustomerPaymentsContext contex)
         {
-            _objectSet = contex.CreateObjectSet<T>();
+            _objectSet = contex.Set<T>();
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
