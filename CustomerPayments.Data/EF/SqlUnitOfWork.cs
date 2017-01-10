@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Domain;
 using CustomerPayments.Domain.EF;
+using System.Data.Entity;
+using CustomerPayments.Data.Custom;
 
 namespace CustomerPayments.Data.EF
 {
@@ -20,20 +22,20 @@ namespace CustomerPayments.Data.EF
                     .ConnectionStrings[ConnectionStringName]
                     .ConnectionString;
 
-            _context = new ObjectContext(connectionString);
-            _context.ContextOptions.LazyLoadingEnabled = true;
+            _context = new CustomerPaymentsContext(connectionString);
+            _context.Configuration.LazyLoadingEnabled = false;
         }
 
-        public IObjectSet<Customer> Customers
+        public IDbSet<Customer> Customers
         {
-            get { return _context.CreateObjectSet<Customer>(); }
+            get { return _context.Set<Customer>(); }
         }
         public void Commit()
         {
             _context.SaveChanges();
         }
 
-        readonly ObjectContext _context;
+        readonly CustomerPaymentsContext _context;
         const string ConnectionStringName = "CustomerPaymentContext";
     }
 }

@@ -35,13 +35,12 @@ namespace CustomerPayments.Data.Custom
                 .Where(e => e.Entity is IModificationHistory)
                 .Select(e => e.Entity as IModificationHistory)
                 ){
-                history.IsDirty = false;
             }
             return result;
         }
 
-     //   public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Customer> Customers { get; set; }
-    //    public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

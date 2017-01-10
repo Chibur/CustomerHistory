@@ -16,7 +16,7 @@ namespace CustomerPayments.Data.Custom
     {
         SqlRepository<Customer> _customers = null;
         readonly CustomerPaymentsContext _context;
-        const string ConnectionStringName = "EmployeeDataModelContainer";
+        const string ConnectionStringName = "CustomerPaymentContext";
 
         public SqlUnitOfWork()
         {
@@ -26,7 +26,7 @@ namespace CustomerPayments.Data.Custom
                     .ConnectionString;
 
             _context = new CustomerPaymentsContext(connectionString);
-            _context.Configuration.LazyLoadingEnabled = true;
+            _context.Configuration.LazyLoadingEnabled = false;
         }
 
         public IRepository<Customer> Customers

@@ -42,6 +42,5 @@ namespace CustomerPayments.Domain.Entities
 
         public virtual DateTime DateCreated { get; set; }
         public virtual DateTime DateModified { get; set; }
-        public virtual bool IsDirty { get; set; }
     }
 }

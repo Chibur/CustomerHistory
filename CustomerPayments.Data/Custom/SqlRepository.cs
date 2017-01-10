@@ -13,31 +13,34 @@ namespace CustomerPayments.Data.Custom
     public class SqlRepository<T> : IRepository<T>
                                     where T :class, IEntity
     {
-        protected DbSet<T> _objectSet;
+        protected CustomerPaymentsContext _context;
+        protected DbSet<T> _dbSet;
+        
         public SqlRepository(CustomerPaymentsContext contex)
         {
-            _objectSet = contex.Set<T>();
+            _context = contex;
+            _dbSet = contex.Set<T>();
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return _objectSet.Where(predicate);
+            return _dbSet.Where(predicate);
         }
         public void Add(T newEntity)
         {
-            _objectSet.AddObject(newEntity);
+            _dbSet.Add(newEntity);
         }
         public void Remove(T entity)
         {
-            _objectSet.DeleteObject(entity);
+            _dbSet.Remove(entity);
         }
         public IQueryable<T> FindAll()
         {
-            return _objectSet;
+            return _dbSet;
         }
         public T FindById(int id)
         {
-            return _objectSet.Single(o => o.Id == id);
+            return _dbSet.Single(o => o.Id == id);
         }
     }
 }
