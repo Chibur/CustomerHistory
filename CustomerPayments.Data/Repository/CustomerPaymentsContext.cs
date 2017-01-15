@@ -2,10 +2,10 @@
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using CustomerPayments.Data.Interfaces;
+using CustomerPayments.Domain.Interfaces;
 using CustomerPayments.Domain.Entities;
 
-namespace CustomerPayments.Data.Custom
+namespace CustomerPayments.Data.Repository
 {
     public class CustomerPaymentsContext: DbContext
     {

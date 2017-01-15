@@ -9,10 +9,16 @@ namespace CustomerPayments.Domain.Custom
 {
     public interface IRepository<T> where T : class, IEntity
     {
-        void Add(T newEntity);
-        void Remove(T entity);
-        IQueryable<T> Find(Expression<Func<T, bool>> predicate);
-        IQueryable<T> FindAll();
-        T FindById(int id);
+
+        IEnumerable<T> All();
+        IEnumerable<T> AllInclude(params Expression<Func<T, object>>[] includeProperties);
+        IEnumerable<T> FindByInclude
+            (Expression<Func<T, bool>> predicate,
+            params Expression<Func<T, object>>[] includeProperties);
+        IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
+        T FindByKey(int id);
+        void Insert(T entity);
+        void Update(T entity);
+        void Delete(int id);
     }
 }

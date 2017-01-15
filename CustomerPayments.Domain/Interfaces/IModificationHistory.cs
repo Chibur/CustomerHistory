@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerPayments.Domain.Interfaces
 {
-    interface IModificationHistory
+    public interface IModificationHistory
     {
         DateTime DateModified { get; set; }
         DateTime DateCreated { get; set; }

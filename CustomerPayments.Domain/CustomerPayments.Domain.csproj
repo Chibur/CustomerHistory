@@ -51,8 +51,6 @@
   <ItemGroup>
     <Compile Include="Custom\IEntity.cs" />
     <Compile Include="Custom\IRepository.cs" />
-    <Compile Include="Custom\IUnitOfWork.cs" />
-    <Compile Include="EF\IUnitOfWork.cs" />
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
     <Compile Include="Entities\Account.cs" />
