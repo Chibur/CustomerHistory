@@ -67,18 +67,21 @@ namespace CustomerPayments.Data.Repository
         public void Insert(T entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var entity = FindByKey(id);
             _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

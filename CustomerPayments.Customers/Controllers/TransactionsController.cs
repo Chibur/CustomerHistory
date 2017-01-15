@@ -1,25 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using System.Configuration;
-using CustomerPayments.Domain.Entities;
-using CustomerPayments.Data.Repository;
-using Newtonsoft.Json;
 
-namespace CustomerPayments.Host.Controllers
+namespace CustomerPayments.Customers.Controllers
 {
-    public class CustomersController : ApiController
+    public class TransactionsController : ApiController
     {
-        private readonly GenericRepository<Customer> _repo;
-
-        public CustomersController(GenericRepository<Customer> repo)
-        {
-            _repo = repo;
-        }
-
         // GET: api/Transactions
         public IEnumerable<string> Get()
         {
