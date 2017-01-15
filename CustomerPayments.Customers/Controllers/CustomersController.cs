@@ -9,7 +9,7 @@ using CustomerPayments.DataModel;
 using CustomerPayments.DataModel.Repositories;
 using Newtonsoft.Json;
 
-namespace CustomerPayments.Customers.Controllers
+namespace CustomerPayments.Host.Controllers
 {
     public class CustomersController : ApiController
     {
