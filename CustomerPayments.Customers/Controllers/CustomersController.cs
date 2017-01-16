@@ -27,9 +27,9 @@ namespace CustomerPayments.Host.Controllers
         }
 
         // GET: api/Transactions/5
-        public string Get(int id)
+        public Customer Get(int id)
         {
-            return "value";
+            return _repo.FindByKey(id);
         }
 
         // POST: api/Transactions

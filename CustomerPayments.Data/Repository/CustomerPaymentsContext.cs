@@ -14,8 +14,6 @@ namespace CustomerPayments.Data.Repository
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Types().
-            //    Configure(c => c.Ignore("IsDirty"));
             base.OnModelCreating(modelBuilder);
         }
 

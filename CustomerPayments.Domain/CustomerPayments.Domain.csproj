@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\IEntity.cs" />
-    <Compile Include="Custom\IRepository.cs" />
+    <Compile Include="Repository\IEntity.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
     <Compile Include="Entities\Account.cs" />
@@ -62,6 +62,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

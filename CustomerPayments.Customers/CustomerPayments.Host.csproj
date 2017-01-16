@@ -119,9 +119,13 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomerPayments.DataModel\CustomerPayments.DataModel.csproj">
-      <Project>{90643c0f-1c54-4faa-94f8-70af075a02d9}</Project>
-      <Name>CustomerPayments.DataModel</Name>
+    <ProjectReference Include="..\CustomerPayments.Data\CustomerPayments.Data.csproj">
+      <Project>{f4086d22-1651-4ede-bfaa-270908152165}</Project>
+      <Name>CustomerPayments.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomerPayments.Domain\CustomerPayments.Domain.csproj">
+      <Project>{2faf5cbb-987f-44b3-bf92-3195e96137b0}</Project>
+      <Name>CustomerPayments.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

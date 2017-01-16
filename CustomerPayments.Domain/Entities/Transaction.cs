@@ -28,7 +28,7 @@ namespace CustomerPayments.Domain.Entities
 
         public int? AccountId { get; set; }
         [ForeignKey("AccountId")]
-        public virtual Account Account { get; set; }
+        public Account Account { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

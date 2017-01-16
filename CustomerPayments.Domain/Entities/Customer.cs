@@ -6,8 +6,8 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.Domain.Custom;
 using CustomerPayments.Domain.Interfaces;
+using CustomerPayments.Domain.Repository;
 
 namespace CustomerPayments.Domain.Entities
 {
@@ -19,28 +19,28 @@ namespace CustomerPayments.Domain.Entities
             Accounts = new List<Account>();
         }
 
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
 
         [StringLength(50)]
         [Required]
-        public virtual string FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [StringLength(50)]
         [Required]
-        public virtual string LastName { get; set; }
+        public string LastName { get; set; }
 
         [StringLength(20)]
-        public virtual string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [StringLength(50)]
-        public virtual string EmailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
         [Column(TypeName = "date")]
-        public virtual DateTime Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
-        public virtual List<Account> Accounts { get; set; }
+        public List<Account> Accounts { get; set; }
 
-        public virtual DateTime DateCreated { get; set; }
-        public virtual DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
     }
 }

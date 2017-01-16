@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.Domain.Custom;
+using CustomerPayments.Domain.Repository;
 
 namespace CustomerPayments.Data.Repository
 {
