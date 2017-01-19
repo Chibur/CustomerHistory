@@ -5,17 +5,24 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Configuration;
-using CustomerPayments.Domain.Entities;
-using CustomerPayments.Data.Repository;
 using Newtonsoft.Json;
+using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Data.Repositories;
+using CustomerPayments.Domain;
+using CustomerPayments;
 
 namespace CustomerPayments.Host.Controllers
 {
     public class CustomersController : ApiController
     {
-        private readonly GenericRepository<Customer> _repo;
+        private readonly CustomerRepository _repo;
 
-        public CustomersController(GenericRepository<Customer> repo)
+        public CustomersController()
+        {
+            _repo = new CustomerRepository(new CustomerPaymentsContext());
+        }
+
+        public CustomersController(CustomerRepository repo)
         {
             _repo = repo;
         }
@@ -27,10 +34,10 @@ namespace CustomerPayments.Host.Controllers
         }
 
         // GET: api/Transactions/5
-        public Customer Get(int id)
-        {
-            return _repo.FindByKey(id);
-        }
+        //public Customer Get(int id)
+        //{
+        //    return _repo.FindByKey(id);
+        //}
 
         // POST: api/Transactions
         public void Post([FromBody]string value)

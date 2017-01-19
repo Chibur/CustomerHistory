@@ -5,34 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using CustomerPayments.Domain.Entities;
 
-namespace CustomerPayments.Domain.Mappers
+namespace CustomerPayments.Data.Mappers
 {
     class TransactionMapper
     {
-        //public DTO.Transaction CreateTransaction(Transaction transaction)
-        //{
-        //    return new DTO.Transaction()
-        //    {
-        //        Id = transaction.Id,
-        //        Amount = transaction.Amount,
-        //        Discription = transaction.Discription,
-        //        BeneficiaryAccount = transaction.BeneficiaryAccount,
-        //        SenderAccount = transaction.AccountId,
-        //    };
-        //}
+        public DTO.Transaction CreateTransaction(Transaction transaction)
+        {
+            return new DTO.Transaction()
+            {
+                Id = transaction.Id,
+                Amount = transaction.Amount,
+                Discription = transaction.Discription,
+                BeneficiaryAccount = transaction.BeneficiaryAccount,
+                SenderAccount = transaction.SenderAccount
+            };
+        }
 
-        //public Transaction CreateTransaction(Data.Transaction transaction)
-        //{
-        //    return new Transaction()
-        //    {
-        //        Id = transaction.Id,
-        //        AccountFromId = transaction.AccountFromId,
-        //        AccountToId = transaction.AccountToId,
-        //        CustomerFromId = transaction.CustomerFromId,
-        //        CustomerToId = transaction.CustomerToId,
-        //        TransactionSubmitted = transaction.TransactionSubmitted,
-        //        Amount = transaction.Amount
-        //    };
-        //}
+        public Transaction CreateTransaction(DTO.Transaction transaction)
+        {
+            return new Transaction()
+            {
+                Id = transaction.Id,
+                Amount = transaction.Amount,
+                Discription = transaction.Discription,
+                BeneficiaryAccount = transaction.BeneficiaryAccount,
+                SenderAccount = transaction.SenderAccount
+            };
+        }
     }
 }

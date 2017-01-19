@@ -9,12 +9,10 @@ using CustomerPayments.Domain.Entities;
 
 namespace CustomerPayments.Data.Repositories
 {
-    public class CustomerRepository
+    public class CustomerRepository:GenericRepository<Account>
     {
-        private readonly CustomerPaymentsContext _context;
-        public CustomerRepository(CustomerPaymentsContext context)
+        public CustomerRepository(CustomerPaymentsContext context):base(context)
         {
-            _context = context;
         }
 
         //public List<Customer> GetQueryableNinjasWithClan(string query, int page, int pageSize)

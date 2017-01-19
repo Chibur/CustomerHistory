@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CustomerPayments.Domain.Entities;
 
-namespace CustomerPayments.Domain.Mappers
+namespace CustomerPayments.Data.Mappers
 {
     public static class CustomerMapper
     {

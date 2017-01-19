@@ -8,8 +8,8 @@ using CustomerPayments.Domain.Entities;
 
 namespace CustomerPayments.Data.Repositories
 {
-    public class AccountRepository
+    public class AccountRepository: GenericRepository<Account>
     {
-        public AccountRepository(CustomerPaymentsContext context) {}
+        public AccountRepository(CustomerPaymentsContext context): base(context) {}
     }
 }

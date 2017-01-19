@@ -12,6 +12,6 @@ namespace CustomerPayments.DTO
         public decimal Amount { get; set; }
         public string Discription { get; set; }
         public string BeneficiaryAccount { get; set; }
-        public int? AccountId { get; set; }
+        public string SenderAccount { get; set; }
     }
 }

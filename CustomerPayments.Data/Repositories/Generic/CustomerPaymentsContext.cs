@@ -10,7 +10,7 @@ namespace CustomerPayments.Data.Repositories.Generic
     public class CustomerPaymentsContext : DbContext
     {
 
-        public CustomerPaymentsContext(string str) : base(str) { }
+      //  public CustomerPaymentsContext(string str) : base(str) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

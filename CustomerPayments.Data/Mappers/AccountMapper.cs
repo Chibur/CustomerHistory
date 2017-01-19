@@ -7,7 +7,7 @@ using CustomerPayments.Domain.Entities;
 using CustomerPayments.Domain.Enums;
 using CustomerPayments;
 
-namespace CustomerPayments.Domain.Mappers
+namespace CustomerPayments.Data.Mappers
 {
     public static class AccountMapper
     {

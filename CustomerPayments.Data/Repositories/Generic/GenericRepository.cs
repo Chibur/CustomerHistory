@@ -12,7 +12,7 @@ using CustomerPayments.Domain.Repositories;
 namespace CustomerPayments.Data.Repositories.Generic
 {
     public class GenericRepository<T> : IRepository<T>
-                                    where T :class, IEntity
+                                    where T :class
     {
         internal DbContext _context;
         internal DbSet<T> _dbSet;
@@ -68,18 +68,21 @@ namespace CustomerPayments.Data.Repositories.Generic
         public void Insert(T entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var entity = FindByKey(id);
             _dbSet.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

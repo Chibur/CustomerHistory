@@ -50,9 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\TestData.cs" />
     <Compile Include="Mappers\AccountMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\TransactionMapper.cs" />
+    <Compile Include="Migrations\201701191825439_SchemaUpdate.cs" />
+    <Compile Include="Migrations\201701191825439_SchemaUpdate.Designer.cs">
+      <DependentUpon>201701191825439_SchemaUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
     <Compile Include="Repositories\Generic\CustomerPaymentsContext.cs" />
@@ -76,7 +82,11 @@
       <Name>CustomerPayments.DTO</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701191825439_SchemaUpdate.resx">
+      <DependentUpon>201701191825439_SchemaUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
