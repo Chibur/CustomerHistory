@@ -4,21 +4,35 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerPayments;
+using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Domain.Entities;
 
 namespace CustomerPayments.Customers.Controllers
 {
     public class AccountsController : ApiController
     {
-        // GET: api/Accounts
-        public IEnumerable<string> Get()
+        private readonly GenericRepository<Account> _repo;
+        public AccountsController()
         {
-            return new string[] { "value1", "value2" };
+            _repo = new GenericRepository<Account>(new CustomerPaymentsContext());
+        }
+        // GET: api/Accounts
+        public IEnumerable<Account> Get()
+        {
+            return _repo.All();
         }
 
         // GET: api/Accounts/5
-        public string Get(int id)
+        public Account Get(int? id)
         {
-            return "value";
+            return _repo.FindByKey(id.Value);
+        }
+        [HttpGet]
+        [Route("GetAllIncluded")]
+        public IEnumerable<Account>GetAllIncluded()
+        {
+            return _repo.AllInclude(e => e.Id);
         }
 
         // POST: api/Accounts

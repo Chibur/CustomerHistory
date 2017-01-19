@@ -9,7 +9,7 @@ namespace CustomerPayments.Data.Mappers
 {
     class TransactionMapper
     {
-        public DTO.Transaction CreateTransaction(Transaction transaction)
+        public DTO.Transaction MapTransaction(Transaction transaction)
         {
             return new DTO.Transaction()
             {
@@ -21,7 +21,7 @@ namespace CustomerPayments.Data.Mappers
             };
         }
 
-        public Transaction CreateTransaction(DTO.Transaction transaction)
+        public Transaction MapTransaction(DTO.Transaction transaction)
         {
             return new Transaction()
             {

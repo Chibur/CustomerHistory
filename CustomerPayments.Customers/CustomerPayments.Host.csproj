@@ -97,9 +97,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CustomerPayments.DataModel.CustomerPaymentsContext.mdf" />
-    <Content Include="App_Data\CustomerPayments.DataModel.CustomerPaymentsContext_log.ldf">
-      <DependentUpon>CustomerPayments.DataModel.CustomerPaymentsContext.mdf</DependentUpon>
+    <Content Include="App_Data\CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext.mdf" />
+    <Content Include="App_Data\CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext_log.ldf">
+      <DependentUpon>CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -135,6 +135,10 @@
     <ProjectReference Include="..\CustomerPayments.Domain\CustomerPayments.Domain.csproj">
       <Project>{2faf5cbb-987f-44b3-bf92-3195e96137b0}</Project>
       <Name>CustomerPayments.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\CustomerPayments.DTO.csproj">
+      <Project>{1a1e808b-00a7-495e-bf0f-2d0c7172931b}</Project>
+      <Name>CustomerPayments.DTO</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

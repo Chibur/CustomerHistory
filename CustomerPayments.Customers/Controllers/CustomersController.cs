@@ -8,7 +8,8 @@ using System.Configuration;
 using Newtonsoft.Json;
 using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Data.Repositories;
-using CustomerPayments.Domain;
+using CustomerPayments.Domain.Entities;
+using CustomerPayments.Data.Mappers;
 using CustomerPayments;
 
 namespace CustomerPayments.Host.Controllers
@@ -28,16 +29,24 @@ namespace CustomerPayments.Host.Controllers
         }
 
         // GET: api/Transactions
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Transactions/5
-        //public Customer Get(int id)
+        //public IEnumerable<DTO.Customer> Get()
         //{
-        //    return _repo.FindByKey(id);
+        //    List<DTO.Customer> cust; 
+        //    IEnumerable cs = _repo.All();
+        //    foreach(Customer c in cs)
+        //    {
+        //        cust.Add(CustomerMapper.MapCustomer(c));
+        //    }
+
+        //    return new IEnumerable<DTO.Customer> { };
         //}
+
+       // GET: api/Transactions/5
+        [HttpGet]
+        public DTO.Customer Get(int id)
+        {
+            return _repo.FindById(id);
+        }
 
         // POST: api/Transactions
         public void Post([FromBody]string value)

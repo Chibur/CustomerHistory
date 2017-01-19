@@ -11,7 +11,7 @@ namespace CustomerPayments.Data.Mappers
 {
     public static class AccountMapper
     {
-        public static DTO.Account CreateAccount(Account account)
+        public static DTO.Account MapAccount(Account account)
         {
             return new DTO.Account()
             {
@@ -23,7 +23,7 @@ namespace CustomerPayments.Data.Mappers
             };
         }
 
-        public static Account CreateAccount(DTO.Account account)
+        public static Account MapAccount(DTO.Account account)
         {
             return new Account()
             {

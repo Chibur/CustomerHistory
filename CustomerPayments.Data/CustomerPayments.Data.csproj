@@ -53,6 +53,7 @@
     <Compile Include="Helpers\TestData.cs" />
     <Compile Include="Mappers\AccountMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
+    <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="Mappers\TransactionMapper.cs" />
     <Compile Include="Migrations\201701191825439_SchemaUpdate.cs" />
     <Compile Include="Migrations\201701191825439_SchemaUpdate.Designer.cs">
