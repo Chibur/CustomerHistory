@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.DTO
+namespace CustomerPayments.Domain.Repositories
 {
-    public enum AccountType
+    public interface IEntity
     {
-        Credit,
-        Debit
+        int Id { get; }
     }
 }

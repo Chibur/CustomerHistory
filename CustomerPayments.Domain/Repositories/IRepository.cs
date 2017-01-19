@@ -5,11 +5,10 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.Domain.Repository
+namespace CustomerPayments.Domain.Repositories
 {
-    public interface IRepository<T> where T : class, IEntity
+    public interface IRepository<T> where T : class
     {
-
         IEnumerable<T> All();
         IEnumerable<T> AllInclude(params Expression<Func<T, object>>[] includeProperties);
         IEnumerable<T> FindByInclude

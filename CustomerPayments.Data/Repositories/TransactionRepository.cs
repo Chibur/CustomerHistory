@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.Domain.Repository
+namespace CustomerPayments.Data.Repositories
 {
-    public interface IEntity
+    public class TransactionRepository
     {
-        int Id { get; }
     }
 }

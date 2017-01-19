@@ -26,9 +26,9 @@ namespace CustomerPayments.Domain.Entities
         [Required]
         public string BeneficiaryAccount { get; set; }
 
-        public int? AccountId { get; set; }
-        [ForeignKey("AccountId")]
-        public Account Account { get; set; }
+        [StringLength(30)]
+        [Required]
+        public string SenderAccount { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }

@@ -50,11 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\CustomerPaymentsContext.cs" />
-    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Mappers\AccountMapper.cs" />
+    <Compile Include="Mappers\CustomerMapper.cs" />
+    <Compile Include="Mappers\TransactionMapper.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\Generic\CustomerPaymentsContext.cs" />
+    <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Extentions\QueryableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Utilities.cs" />
+    <Compile Include="Repositories\TransactionRepository.cs" />
+    <Compile Include="Repositories\Generic\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -65,7 +71,12 @@
       <Project>{2faf5cbb-987f-44b3-bf92-3195e96137b0}</Project>
       <Name>CustomerPayments.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\CustomerPayments.DTO.csproj">
+      <Project>{1a1e808b-00a7-495e-bf0f-2d0c7172931b}</Project>
+      <Name>CustomerPayments.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

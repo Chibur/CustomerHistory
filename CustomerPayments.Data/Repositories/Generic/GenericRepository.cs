@@ -6,9 +6,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.Domain.Repository;
+using CustomerPayments.Data.Repository;
+using CustomerPayments.Domain.Repositories;
 
-namespace CustomerPayments.Data.Repository
+namespace CustomerPayments.Data.Repositories.Generic
 {
     public class GenericRepository<T> : IRepository<T>
                                     where T :class, IEntity
@@ -67,21 +68,18 @@ namespace CustomerPayments.Data.Repository
         public void Insert(T entity)
         {
             _dbSet.Add(entity);
-            _context.SaveChanges();
         }
 
         public void Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
             var entity = FindByKey(id);
             _dbSet.Remove(entity);
-            _context.SaveChanges();
         }
     }
 }

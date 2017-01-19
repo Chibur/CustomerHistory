@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CustomerPayments.Domain.Interfaces;
-using CustomerPayments.Domain.Repository;
+using CustomerPayments.Domain.Repositories;
 
 namespace CustomerPayments.Domain.Entities
 {
