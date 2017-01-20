@@ -6,10 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 using CustomerPayments;
 using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Data.Mappers;
 using CustomerPayments.Domain.Entities;
 
 namespace CustomerPayments.Customers.Controllers
 {
+    [RoutePrefix("api")]
     public class AccountsController : ApiController
     {
         private readonly GenericRepository<Account> _repo;
@@ -18,35 +20,63 @@ namespace CustomerPayments.Customers.Controllers
             _repo = new GenericRepository<Account>(new CustomerPaymentsContext());
         }
         // GET: api/Accounts
-        public IEnumerable<Account> Get()
+        public IHttpActionResult Get()
         {
-            return _repo.All();
+            try
+            {
+                var accounts = _repo.All();
+
+                return Ok(accounts.Select(a => AccountMapper.MapAccount(a)));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
         // GET: api/Accounts/5
-        public Account Get(int? id)
+        public IHttpActionResult Get(int? id)
         {
-            return _repo.FindByKey(id.Value);
+            try
+            {
+                var account = _repo.FindByKey(id.Value);
+                return Ok(AccountMapper.MapAccount(account));
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
-        [HttpGet]
-        [Route("GetAllIncluded")]
-        public IEnumerable<Account>GetAllIncluded()
-        {
-            return _repo.AllInclude(e => e.Id);
-        }
+        //[HttpGet]
+        //[Route("GetAllIncluded")]
+        //public IEnumerable<Account>GetAllIncluded()
+        //{
+        //    return _repo.AllInclude(e => e.Id);
+        //}
 
         // POST: api/Accounts
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [Route("Accounts")]
+        public IHttpActionResult Post([FromBody]DTO.Account account)
         {
+            try
+            {
+                var acc = AccountMapper.MapAccount(account);
+
+            }
+            catch
+            {
+
+            }
         }
 
         // PUT: api/Accounts/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(int id, [FromBody]string value)
         {
         }
 
         // DELETE: api/Accounts/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
         }
     }
