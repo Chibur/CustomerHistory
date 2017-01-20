@@ -20,6 +20,8 @@ namespace CustomerPayments.Customers.Controllers
             _repo = new GenericRepository<Account>(new CustomerPaymentsContext());
         }
         // GET: api/Accounts
+        [HttpGet]
+        [Route("Accounts")]
         public IHttpActionResult Get()
         {
             try
@@ -35,6 +37,8 @@ namespace CustomerPayments.Customers.Controllers
         }
 
         // GET: api/Accounts/5
+        [HttpGet]
+        [Route("Accounts/{id}")]
         public IHttpActionResult Get(int? id)
         {
             try
@@ -47,12 +51,6 @@ namespace CustomerPayments.Customers.Controllers
                 return NotFound();
             }
         }
-        //[HttpGet]
-        //[Route("GetAllIncluded")]
-        //public IEnumerable<Account>GetAllIncluded()
-        //{
-        //    return _repo.AllInclude(e => e.Id);
-        //}
 
         // POST: api/Accounts
         [HttpPost]
@@ -62,22 +60,42 @@ namespace CustomerPayments.Customers.Controllers
             try
             {
                 var acc = AccountMapper.MapAccount(account);
-
+                _repo.Insert(acc);
+              //  var newAcc = AccountMapper.MapAccount(account);
+                return Created<DTO.Account>(Request.RequestUri + "/" + acc.Id.ToString(), account); // TODO: return record retreaved from db
             }
             catch
             {
-
+               return InternalServerError();
             }
         }
 
         // PUT: api/Accounts/5
-        public IHttpActionResult Put(int id, [FromBody]string value)
+        [Route("Accounts/{id}")]
+        [HttpPut]
+        public IHttpActionResult Put(int id, [FromBody]DTO.Account account)
         {
+            try
+            {
+                var acc = AccountMapper.MapAccount(account);
+                _repo.Update(acc);
+                return Ok(account);
+            }
+            catch
+            {
+               return  InternalServerError();
+            }
+
         }
 
         // DELETE: api/Accounts/5
-        public IHttpActionResult Delete(int id)
-        {
-        }
+
+        //public IHttpActionResult Delete(int id)
+        //{
+        //    try
+        //    {
+
+        //    }
+        //}
     }
 }

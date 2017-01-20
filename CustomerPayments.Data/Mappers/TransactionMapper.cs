@@ -7,9 +7,9 @@ using CustomerPayments.Domain.Entities;
 
 namespace CustomerPayments.Data.Mappers
 {
-    class TransactionMapper
+    public static class TransactionMapper
     {
-        public DTO.Transaction MapTransaction(Transaction transaction)
+        public static DTO.Transaction MapTransaction(Transaction transaction)
         {
             return new DTO.Transaction()
             {
@@ -21,7 +21,7 @@ namespace CustomerPayments.Data.Mappers
             };
         }
 
-        public Transaction MapTransaction(DTO.Transaction transaction)
+        public static Transaction MapTransaction(DTO.Transaction transaction)
         {
             return new Transaction()
             {

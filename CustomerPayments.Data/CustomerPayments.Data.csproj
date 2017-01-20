@@ -66,6 +66,8 @@
     <Compile Include="Repositories\Generic\GenericRepository.cs" />
     <Compile Include="Extentions\QueryableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Generic\RepositoryActionCode.cs" />
+    <Compile Include="Repositories\Generic\RepositoryActionResult.cs" />
     <Compile Include="Repositories\TransactionRepository.cs" />
     <Compile Include="Repositories\Generic\Utilities.cs" />
   </ItemGroup>

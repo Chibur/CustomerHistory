@@ -45,7 +45,7 @@ namespace CustomerPayments.Host.Controllers
         [HttpGet]
         public DTO.Customer Get(int id)
         {
-            return _repo.FindById(id);
+            return _repo.FindCustomer(id);
         }
 
         // POST: api/Transactions

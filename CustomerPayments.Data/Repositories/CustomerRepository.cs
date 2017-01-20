@@ -21,7 +21,7 @@ namespace CustomerPayments.Data.Repositories
             _context = context;
         }
 
-        public DTO.Customer FindById(int id)
+        public DTO.Customer FindCustomer(int id)
         {
             var customer = _context.Customers.AsNoTracking().FirstOrDefault(c => c.Id == id);
             return CustomerMapper.MapCustomer(customer);
@@ -32,6 +32,7 @@ namespace CustomerPayments.Data.Repositories
             return _context.Customers.AsNoTracking()
                 .Select(c => CustomerMapper.MapCustomer(c));
         }
+
         public void Add(DTO.Customer customer)
         {
             _context.Customers.Add(
