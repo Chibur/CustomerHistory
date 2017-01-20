@@ -8,16 +8,17 @@ using CustomerPayments;
 using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments.Domain.Entities;
+using CustomerPayments.Data.Repositories;
 
 namespace CustomerPayments.Customers.Controllers
 {
     [RoutePrefix("api")]
     public class AccountsController : ApiController
     {
-        private readonly GenericRepository<Account> _repo;
+        private readonly AccountRepository _repo;
         public AccountsController()
         {
-            _repo = new GenericRepository<Account>(new CustomerPaymentsContext());
+            _repo = new AccountRepository(new CustomerPaymentsContext());
         }
         // GET: api/Accounts
         [HttpGet]
@@ -26,9 +27,9 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                var accounts = _repo.All();
+                var accounts = _repo.FindAll();
 
-                return Ok(accounts.Select(a => AccountMapper.MapAccount(a)));
+                return Ok(accounts.Select(a => accounts));
             }
             catch
             {
@@ -43,8 +44,8 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                var account = _repo.FindByKey(id.Value);
-                return Ok(AccountMapper.MapAccount(account));
+                var account = _repo.FindAccount(id.Value);
+                return Ok(account);
             }
             catch
             {
@@ -59,10 +60,8 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                var acc = AccountMapper.MapAccount(account);
-                _repo.Insert(acc);
-              //  var newAcc = AccountMapper.MapAccount(account);
-                return Created<DTO.Account>(Request.RequestUri + "/" + acc.Id.ToString(), account); // TODO: return record retreaved from db
+                _repo.Add(account);
+                return Created<DTO.Account>(Request.RequestUri + "/" + account.Id.ToString(), account); // TODO: return record retreaved from db
             }
             catch
             {
@@ -77,9 +76,8 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                var acc = AccountMapper.MapAccount(account);
-                _repo.Update(acc);
-                return Ok(account);
+                _repo.Update(account);
+                return Ok(account); // TODO return repo status code
             }
             catch
             {
@@ -89,13 +87,19 @@ namespace CustomerPayments.Customers.Controllers
         }
 
         // DELETE: api/Accounts/5
-
-        //public IHttpActionResult Delete(int id)
-        //{
-        //    try
-        //    {
-
-        //    }
-        //}
+        [Route("Accounts/{id}")]
+        [HttpDelete]
+        public IHttpActionResult delete(int id)
+        {
+            try
+            {
+                _repo.Remove(id);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+        }
     }
 }

@@ -49,7 +49,7 @@ namespace CustomerPayments.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void RemoveAccount(int id)
+        public void Remove(int id)
         {
             _context.Accounts.Remove(_context.Accounts.Find(id));
             _context.SaveChanges();

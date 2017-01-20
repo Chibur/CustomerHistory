@@ -26,14 +26,14 @@ namespace CustomerPayments.Data.Repositories
 
         public DTO.Transaction FindTransaction(int id)
         {
-            var account = _context.Transactions.AsNoTracking().FirstOrDefault(c => c.Id == id);
-            return AccountMapper.MapAccount(account);
+            var transaction = _context.Transactions.AsNoTracking().FirstOrDefault(c => c.Id == id);
+            return TransactionMapper.MapTransaction(transaction);
         }
 
         public IEnumerable<DTO.Transaction> FindAll()
         {
             return _context.Transactions.AsNoTracking()
-                .Select(c => AccountMapper.MapAccount(c));
+                .Select(c => TransactionMapper.MapTransaction(c));
         }
 
         public void Add(DTO.Transaction transaction)
@@ -43,13 +43,13 @@ namespace CustomerPayments.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(DTO.Account transaction)
+        public void Update(DTO.Transaction transaction)
         {
             _context.Entry(transaction).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public void RemoveAccount(int id)
+        public void Remove(int id)
         {
             _context.Transactions.Remove(_context.Transactions.Find(id));
             _context.SaveChanges();

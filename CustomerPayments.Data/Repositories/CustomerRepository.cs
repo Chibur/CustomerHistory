@@ -46,29 +46,10 @@ namespace CustomerPayments.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void RemoveCustomer(int id)
+        public void Remove(int id)
         {
             _context.Customers.Remove(_context.Customers.Find(id));
             _context.SaveChanges();
         }
-
-
-        //public List<Customer> GetQueryableNinjasWithClan(string query, int page, int pageSize)
-        //{
-        //    //context.Database.Log = message => Debug.WriteLine(message);
-        //    var linqQuery = _context.Customers;
-        //    if (!string.IsNullOrEmpty(query))
-        //    {
-        //        linqQuery = linqQuery.Where(n => n.LastName.Contains(query)).AsQueryable();
-        //    }
-        //    if (page > 0 && pageSize > 0)
-        //    {
-        //        linqQuery = linqQuery.OrderBy(n => n.LastName).Skip(page - 1).Take(pageSize);
-        //    }
-
-        //    return linqQuery.ToList();
-            //}
-        //}
-
     }
 }
