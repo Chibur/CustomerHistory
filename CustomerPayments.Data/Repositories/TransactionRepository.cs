@@ -12,7 +12,7 @@ using CustomerPayments;
 
 namespace CustomerPayments.Data.Repositories
 {
-    public class TransactionRepository
+    public class TransactionRepository: IRepository<Transaction>
     {
         private readonly CustomerPaymentsContext _context;
         public TransactionRepository()
@@ -24,26 +24,24 @@ namespace CustomerPayments.Data.Repositories
             _context = context;
         }
 
-        public DTO.Transaction FindTransaction(int id)
+        public Transaction Find(int id)
         {
             var transaction = _context.Transactions.AsNoTracking().FirstOrDefault(c => c.Id == id);
-            return TransactionMapper.MapTransaction(transaction);
+            return transaction;
         }
 
-        public IEnumerable<DTO.Transaction> FindAll()
+        public IEnumerable<Transaction> FindAll()
         {
-            return _context.Transactions.AsNoTracking()
-                .Select(c => TransactionMapper.MapTransaction(c));
+            return _context.Transactions.AsNoTracking();
         }
 
-        public void Add(DTO.Transaction transaction)
+        public void Add(Transaction transaction)
         {
-            _context.Transactions.Add(
-                TransactionMapper.MapTransaction(transaction));
+            _context.Transactions.Add(transaction);
             _context.SaveChanges();
         }
 
-        public void Update(DTO.Transaction transaction)
+        public void Update(Transaction transaction)
         {
             _context.Entry(transaction).State = EntityState.Modified;
             _context.SaveChanges();

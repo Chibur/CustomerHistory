@@ -15,10 +15,10 @@ namespace CustomerPayments.Customers.Controllers
     [RoutePrefix("api")]
     public class AccountsController : ApiController
     {
-        private readonly AccountRepository _repo;
-        public AccountsController()
+        private readonly IRepository<Account>_repo;
+        public AccountsController (IRepository<Account> repo)
         {
-            _repo = new AccountRepository(new CustomerPaymentsContext());
+            _repo = repo;
         }
         // GET: api/Accounts
         [HttpGet]
@@ -29,7 +29,7 @@ namespace CustomerPayments.Customers.Controllers
             {
                 var accounts = _repo.FindAll();
 
-                return Ok(accounts.Select(a => accounts));
+                return Ok(accounts.Select(a => AccountMapper.Map(a)));
             }
             catch
             {
@@ -40,12 +40,12 @@ namespace CustomerPayments.Customers.Controllers
         // GET: api/Accounts/5
         [HttpGet]
         [Route("Accounts/{id}")]
-        public IHttpActionResult Get(int? id)
+        public IHttpActionResult Get(int id)
         {
             try
             {
-                var account = _repo.FindAccount(id.Value);
-                return Ok(account);
+                var account = _repo.Find(id);
+                return Ok(AccountMapper.Map(account));
             }
             catch
             {
@@ -60,7 +60,7 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Add(account);
+                _repo.Add(AccountMapper.Map(account));
                 return Created<DTO.Account>(Request.RequestUri + "/" + account.Id.ToString(), account); // TODO: return record retreaved from db
             }
             catch
@@ -76,7 +76,7 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Update(account);
+                _repo.Update(AccountMapper.Map(account));
                 return Ok(account); // TODO return repo status code
             }
             catch

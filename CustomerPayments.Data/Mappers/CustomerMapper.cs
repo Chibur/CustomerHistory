@@ -9,7 +9,7 @@ namespace CustomerPayments.Data.Mappers
 {
     public static class CustomerMapper
     {
-        public static DTO.Customer MapCustomer(Customer customer)
+        public static DTO.Customer Map(Customer customer)
         {
             return new DTO.Customer()
             {
@@ -22,7 +22,7 @@ namespace CustomerPayments.Data.Mappers
             };
         }
 
-        public static Customer MapCustomer(DTO.Customer customer)
+        public static Customer Map(DTO.Customer customer)
         {
             return new Customer()
             {

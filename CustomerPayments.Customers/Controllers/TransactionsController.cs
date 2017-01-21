@@ -1,4 +1,6 @@
-﻿using CustomerPayments.Data.Repositories;
+﻿using CustomerPayments.Data.Mappers;
+using CustomerPayments.Data.Repositories;
+using CustomerPayments.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +10,16 @@ using System.Web.Http;
 
 namespace CustomerPayments.Customers.Controllers
 {
+    [RoutePrefix("api")]
     public class TransactionsController : ApiController
     {
-        private readonly TransactionRepository _repo;
-        public TransactionsController()
+        private readonly IRepository<Transaction> _repo;
+
+        public TransactionsController(IRepository<Transaction> repo)
         {
-            _repo = new TransactionRepository();
+            _repo = repo;
         }
+
         // GET: api/Transactions
         [HttpGet]
         [Route("Transactions")]
@@ -24,7 +29,7 @@ namespace CustomerPayments.Customers.Controllers
             {
                 var transactions = _repo.FindAll();
 
-                return Ok(transactions.Select(a => transactions));
+                return Ok(transactions.Select(t => TransactionMapper.Map(t)));
             }
             catch
             {
@@ -39,8 +44,8 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                var transaction = _repo.FindTransaction(id);
-                return Ok(transaction);
+                var transaction = _repo.Find(id);
+                return Ok(TransactionMapper.Map(transaction));
             }
             catch
             {
@@ -55,12 +60,12 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Add(transaction);
+                _repo.Add(TransactionMapper.Map(transaction));
                 return Created<DTO.Transaction>(Request.RequestUri + "/" + transaction.Id.ToString(), transaction); // TODO: return record retreaved from db
             }
             catch
             {
-               return InternalServerError();
+                return InternalServerError();
             }
         }
 
@@ -71,12 +76,12 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Update(transaction);
+                _repo.Update(TransactionMapper.Map(transaction));
                 return Ok(transaction); // TODO return repo status code
             }
             catch
             {
-               return  InternalServerError();
+                return InternalServerError();
             }
 
         }

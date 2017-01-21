@@ -106,9 +106,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="DependancyResolution\ApiControllerInstaller.cs" />
+    <Compile Include="DependancyResolution\WindsorCompositionRoot.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
+    <Compile Include="DependancyResolution\RepositoriesInstaller.cs" />
+    <Compile Include="DependancyResolution\WindsorDependancyResolver.cs" />
     <Compile Include="Filters\ModelFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -125,7 +129,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DependancyResolution\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

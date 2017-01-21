@@ -12,7 +12,7 @@ using CustomerPayments;
 
 namespace CustomerPayments.Data.Repositories
 {
-    public class CustomerRepository
+    public class CustomerRepository: IRepository<Customer>
     {
         private readonly CustomerPaymentsContext _context;
 
@@ -21,26 +21,24 @@ namespace CustomerPayments.Data.Repositories
             _context = context;
         }
 
-        public DTO.Customer FindCustomer(int id)
+        public Customer Find(int id)
         {
             var customer = _context.Customers.AsNoTracking().FirstOrDefault(c => c.Id == id);
-            return CustomerMapper.MapCustomer(customer);
+            return customer;
         }
 
-        public IEnumerable<DTO.Customer> FindAll()
+        public IEnumerable<Customer> FindAll()
         {
-            return _context.Customers.AsNoTracking()
-                .Select(c => CustomerMapper.MapCustomer(c));
+            return _context.Customers.AsNoTracking();
         }
 
-        public void Add(DTO.Customer customer)
+        public void Add(Customer customer)
         {
-            _context.Customers.Add(
-                CustomerMapper.MapCustomer(customer));
+            _context.Customers.Add(customer);
             _context.SaveChanges();
         }
 
-        public void Update(DTO.Customer customer)
+        public void Update(Customer customer)
         {
             _context.Entry(customer).State = EntityState.Modified;
             _context.SaveChanges();
