@@ -2,6 +2,7 @@
 using CustomerPayments.Data.Mappers;
 using CustomerPayments.Data.Repositories;
 using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Domain.Entities;
 using Marvin.JsonPatch;
 using System;
 using System.Collections.Generic;
@@ -21,31 +22,21 @@ namespace CustomerPayments.Customers.Controllers
             _repo = repo;
         }
 
-        // GET: api/Transactions
-        [HttpGet]
-        [Route("Transactions")]
-        public IHttpActionResult Get()
-        {
-            try
-            {
-                var transactions = _repo.FindAll();
-
-                return Ok(transactions.Select(t => TransactionMapper.Map(t)));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-
+        // GET: api/Accounts
         [HttpGet]
         [Route("Accounts/{accountId}/Transactions")]
-        public IHttpActionResult GetByAccount(int accountId)
+        [Route("Transactions")]
+        public IHttpActionResult Get(int? customerId = null)
         {
             try
             {
-                var transactions = _repo.FindAll(accountId);
-
+                IEnumerable<Transaction> transactions = null;
+                if (customerId == null)
+                    transactions = _repo.FindAll();
+                else
+                {
+                    transactions = _repo.FindAll(customerId.Value);
+                }
                 return Ok(transactions.Select(t => TransactionMapper.Map(t)));
             }
             catch
@@ -54,35 +45,40 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
-        // GET: api/Transactions/5
-        [HttpGet]
-        [Route("Transactions/{id}")]
-        public IHttpActionResult Get(int id)
-        {
-            try
-            {
-                var transaction = _repo.Find(id);
-                return Ok(TransactionMapper.Map(transaction));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-
-        // GET: api/Transactions/5
+        // GET: api/Accounts/5
         [HttpGet]
         [Route("Accounts/{accountId}/Transactions/{id}")]
-        public IHttpActionResult Get(int id, int accountId)
+        [Route("Transactions/{id}")]
+        public IHttpActionResult Get(int id, int? accountId = null)
         {
             try
             {
-                var transactions = _repo.FindAll(accountId);
-                return Ok(TransactionMapper.Map(transactions.ToList().ElementAt(id-1))); // TODO find another way as it would not work with big set of data
+                Transaction transaction = null;
+                if (accountId == null)
+                {
+                    transaction = _repo.Find(id);
+                }
+                else
+                {
+                    var transactions = _repo.FindAll(accountId.Value);
+                    if (transactions != null)
+                    {
+                        transaction = transactions.ToList().ElementAt(id - 1);
+                    }
+
+                }
+                if (transaction != null)
+                {
+                    return Ok(TransactionMapper.Map(transaction));
+                }
+                else
+                {
+                    return NotFound(); // TODO find another way as it would not work with big set of data
+                }
             }
             catch
             {
-                return NotFound();
+                return InternalServerError();
             }
         }
 
@@ -94,7 +90,7 @@ namespace CustomerPayments.Customers.Controllers
             try
             {
                 if (transaction == null)
-                    BadRequest();
+                    return BadRequest();
 
                 var trns = TransactionMapper.Map(transaction);
                 var result = _repo.Add(trns);

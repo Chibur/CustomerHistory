@@ -23,7 +23,7 @@ namespace CustomerPayments.Customers.Controllers
         }
         // GET: api/Accounts
         [HttpGet]
-        [Route("Accounts")]
+       
         public IHttpActionResult Get()
         {
             try
@@ -41,12 +41,18 @@ namespace CustomerPayments.Customers.Controllers
         // GET: api/Accounts
         [HttpGet]
         [Route("Customers/{customerId}/Accounts")]
-        public IHttpActionResult GetByCustomer(int customerId)
+        [Route("Accounts")]
+        public IHttpActionResult GetByCustomerId(int? customerId = null)
         {
             try
             {
-                var accounts = _repo.FindAll(customerId);
-
+                IEnumerable<Account> accounts = null;
+                if (customerId == null)
+                    accounts = _repo.FindAll();
+                else
+                {
+                    accounts = _repo.FindAll(customerId.Value);
+                }
                 return Ok(accounts.Select(a => AccountMapper.Map(a)));
             }
             catch
@@ -57,31 +63,38 @@ namespace CustomerPayments.Customers.Controllers
 
         // GET: api/Accounts/5
         [HttpGet]
-        [Route("Accounts/{id}")]
-        public IHttpActionResult Get(int id)
-        {
-            try
-            {
-                var account = _repo.Find(id);
-                return Ok(AccountMapper.Map(account));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-        [HttpGet]
         [Route("Customers/{customerId}/Accounts/{id}")]
-        public IHttpActionResult Get(int id, int customerId)
+        [Route("Accounts/{id}")]
+        public IHttpActionResult Get(int id, int? customerId = null)
         {
             try
             {
-                var accounts = _repo.FindAll(customerId);
-                return Ok(AccountMapper.Map(accounts.ToList().ElementAt(id-1))); // TODO // TODO find another way as it would not work with big set of data
+                Account account = null;
+                if (customerId == null)
+                {
+                    account = _repo.Find(id);
+                }
+                else
+                {
+                    var accounts = _repo.FindAll(customerId.Value);
+                    if (accounts != null)
+                    {
+                        account = accounts.ToList().ElementAt(id - 1);
+                    }
+
+                }
+                if (account != null)
+                {
+                    return Ok(AccountMapper.Map(account));
+                }
+                else
+                {
+                    return NotFound(); // TODO find another way as it would not work with big set of data
+                }
             }
             catch
             {
-                return NotFound();
+                return InternalServerError();
             }
         }
 
@@ -94,7 +107,7 @@ namespace CustomerPayments.Customers.Controllers
             try
             {
                 if (account == null)
-                    BadRequest();
+                    return BadRequest();
 
                 var acc = AccountMapper.Map(account);
                 var result = _repo.Add(acc);

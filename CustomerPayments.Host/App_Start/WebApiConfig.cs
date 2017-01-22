@@ -22,12 +22,25 @@ namespace CustomerPayments.Host
         private static void MapRoutes(HttpConfiguration config)
         {
             // Format json for readability
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
 
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+                new MediaTypeHeaderValue("text/html"));
+
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting
+                = Newtonsoft.Json.Formatting.Indented;
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver
+                = new CamelCasePropertyNamesContractResolver();
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+                new MediaTypeHeaderValue("application/json-patch+json"));
+
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+                = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
+                = Newtonsoft.Json.PreserveReferencesHandling.None;
 
             config.MapHttpAttributeRoutes();
 

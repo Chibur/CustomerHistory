@@ -66,7 +66,7 @@ namespace CustomerPayments.Host.Controllers
             try
             {
                 if (customer == null)
-                    BadRequest();
+                   return BadRequest();
 
                 var cst = CustomerMapper.Map(customer);
                 var result = _repo.Add(cst);
