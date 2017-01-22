@@ -21,28 +21,12 @@ namespace CustomerPayments.Customers.Controllers
         {
             _repo = repo;
         }
-        // GET: api/Accounts
-        [HttpGet]
-       
-        public IHttpActionResult Get()
-        {
-            try
-            {
-                var accounts = _repo.FindAll();
-
-                return Ok(accounts.Select(a => AccountMapper.Map(a)));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
 
         // GET: api/Accounts
         [HttpGet]
         [Route("Customers/{customerId}/Accounts")]
         [Route("Accounts")]
-        public IHttpActionResult GetByCustomerId(int? customerId = null)
+        public IHttpActionResult Get(int? customerId = null)
         {
             try
             {
