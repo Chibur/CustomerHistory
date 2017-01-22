@@ -11,20 +11,16 @@ using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments;
+using Marvin.JsonPatch;
 
 namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class CustomersController : ApiController
     {
-        private readonly IRepository<Customer> _repo;
+        private readonly CustomerRepository _repo;
 
-        //public CustomersController()
-        //{
-        //    _repo = new CustomerRepository(new CustomerPaymentsContext());
-        //}
-
-        public CustomersController(IRepository<Customer> repo)
+        public CustomersController(CustomerRepository repo)
         {
             _repo = repo;
         }
@@ -69,8 +65,18 @@ namespace CustomerPayments.Host.Controllers
         {
             try
             {
-                _repo.Add(CustomerMapper.Map(customer));
-                return Created<DTO.Customer>(Request.RequestUri + "/" + customer.Id.ToString(), customer); // TODO: return record retreaved from db
+                if (customer == null)
+                    BadRequest();
+
+                var cst = CustomerMapper.Map(customer);
+                var result = _repo.Add(cst);
+                if (result.Status == RepositoryActionStatus.Created)
+                {
+                    var newAcc = CustomerMapper.Map(result.Entity);
+                    return Created<DTO.Customer>(Request.RequestUri + "/" + customer.Id.ToString(), newAcc);
+                }
+                return BadRequest();
+
             }
             catch
             {
@@ -85,14 +91,74 @@ namespace CustomerPayments.Host.Controllers
         {
             try
             {
-                _repo.Update(CustomerMapper.Map(customer));
-                return Ok(customer); // TODO return repo status code
+                if (customer == null)
+                {
+                    return BadRequest();
+                }
+
+                // map
+                var cst = CustomerMapper.Map(customer);
+
+                var result = _repo.Update(cst);
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var updatedCustomer = CustomerMapper.Map(result.Entity);
+                    return Ok(updatedCustomer);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
             }
-            catch
+            catch (Exception)
             {
                 return InternalServerError();
             }
+        }
 
+        [Route("Customers/{id}")]
+        [HttpPatch]
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Customer> customerPatchDocument)
+        {
+            try
+            {
+                // find 
+                if (customerPatchDocument == null)
+                {
+                    return BadRequest();
+                }
+
+                var customer = _repo.Find(id);
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+
+                //// map
+                var cst = CustomerMapper.Map(customer);
+
+                // apply changes to the DTO
+                customerPatchDocument.ApplyTo(cst);
+
+                // map the DTO with applied changes to the entity, & update
+                var result = _repo.Update(CustomerMapper.Map(cst));
+
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var updatedExpense = CustomerMapper.Map(result.Entity);
+                    return Ok(updatedExpense);
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Customers/5
@@ -102,10 +168,21 @@ namespace CustomerPayments.Host.Controllers
         {
             try
             {
-                _repo.Remove(id);
-                return StatusCode(HttpStatusCode.NoContent);
+
+                var result = _repo.Remove(id);
+
+                if (result.Status == RepositoryActionStatus.Deleted)
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
             }
-            catch
+            catch (Exception)
             {
                 return InternalServerError();
             }

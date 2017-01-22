@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201701191825439_SchemaUpdate.Designer.cs">
       <DependentUpon>201701191825439_SchemaUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701221233473_acocuntId.cs" />
+    <Compile Include="Migrations\201701221233473_acocuntId.Designer.cs">
+      <DependentUpon>201701221233473_acocuntId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\CustomerRepository.cs" />
@@ -88,6 +92,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701191825439_SchemaUpdate.resx">
       <DependentUpon>201701191825439_SchemaUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221233473_acocuntId.resx">
+      <DependentUpon>201701221233473_acocuntId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

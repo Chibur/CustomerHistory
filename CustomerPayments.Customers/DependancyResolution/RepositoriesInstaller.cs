@@ -17,7 +17,7 @@ namespace CustomerPayments.Customers.DependancyResolution
         public void Install(IWindsorContainer container, IConfigurationStore store)
         { 
             container.Register(
-                Component.For<IRepository<Account>>().ImplementedBy<AccountRepository>().LifestylePerWebRequest());
+                Component.For<CustomerRepository>().LifestylePerWebRequest());
 
 
             // TODO Refactor the solution to use a Generic repository 
@@ -27,12 +27,13 @@ namespace CustomerPayments.Customers.DependancyResolution
 
 
             container.Register(
-                Component.For<IRepository<Customer>>().ImplementedBy<CustomerRepository>().LifestylePerWebRequest());
+                Component.For<AccountRepository>().LifestylePerWebRequest());
             container.Register(
-                Component.For<IRepository<Transaction>>().ImplementedBy<TransactionRepository>().LifestylePerWebRequest());
+                Component.For<TransactionRepository>().LifestylePerWebRequest());
 
 
-            container.Register(Component.For<CustomerPaymentsContext>().LifestylePerWebRequest());
+            container.Register(
+                Component.For<CustomerPaymentsContext>().LifestylePerWebRequest());
         }
     }
 }

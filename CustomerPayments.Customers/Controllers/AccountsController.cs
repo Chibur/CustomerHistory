@@ -9,14 +9,15 @@ using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Repositories;
+using Marvin.JsonPatch;
 
 namespace CustomerPayments.Customers.Controllers
 {
     [RoutePrefix("api")]
     public class AccountsController : ApiController
     {
-        private readonly IRepository<Account>_repo;
-        public AccountsController (IRepository<Account> repo)
+        private readonly AccountRepository _repo;
+        public AccountsController (AccountRepository repo)
         {
             _repo = repo;
         }
@@ -28,6 +29,23 @@ namespace CustomerPayments.Customers.Controllers
             try
             {
                 var accounts = _repo.FindAll();
+
+                return Ok(accounts.Select(a => AccountMapper.Map(a)));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        // GET: api/Accounts
+        [HttpGet]
+        [Route("Customers/{customerId}/Accounts")]
+        public IHttpActionResult GetByCustomer(int customerId)
+        {
+            try
+            {
+                var accounts = _repo.FindAll(customerId);
 
                 return Ok(accounts.Select(a => AccountMapper.Map(a)));
             }
@@ -52,6 +70,21 @@ namespace CustomerPayments.Customers.Controllers
                 return NotFound();
             }
         }
+        [HttpGet]
+        [Route("Customers/{customerId}/Accounts/{id}")]
+        public IHttpActionResult Get(int id, int customerId)
+        {
+            try
+            {
+                var accounts = _repo.FindAll(customerId);
+                return Ok(AccountMapper.Map(accounts.ToList().ElementAt(id+1))); // TODO // TODO find another way as it would not work with big set of data
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
 
         // POST: api/Accounts
         [HttpPost]
@@ -60,8 +93,18 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Add(AccountMapper.Map(account));
-                return Created<DTO.Account>(Request.RequestUri + "/" + account.Id.ToString(), account); // TODO: return record retreaved from db
+                if (account == null)
+                    BadRequest();
+
+                var acc = AccountMapper.Map(account);
+                var result = _repo.Add(acc);
+                if (result.Status == RepositoryActionStatus.Created)
+                {
+                    var newAcc = AccountMapper.Map(result.Entity);
+                    return Created<DTO.Account>(Request.RequestUri + "/" + account.Id.ToString(), newAcc);
+                }
+                return BadRequest();
+                
             }
             catch
             {
@@ -76,14 +119,74 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Update(AccountMapper.Map(account));
-                return Ok(account); // TODO return repo status code
-            }
-            catch
-            {
-               return  InternalServerError();
-            }
+                if (account == null)
+                {
+                    return BadRequest();
+                }
 
+                // map
+                var acc = AccountMapper.Map(account);
+
+                var result = _repo.Update(acc);
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var updatedAccount = AccountMapper.Map(result.Entity);
+                    return Ok(updatedAccount);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("Accounts/{id}")]
+        [HttpPatch]
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Account> accountPatchDocument)
+        {
+            try
+            {
+                // find 
+                if (accountPatchDocument == null)
+                {
+                    return BadRequest();
+                }
+
+                var account = _repo.Find(id);
+                if (account == null)
+                {
+                    return NotFound();
+                }
+
+                //// map
+                var acc = AccountMapper.Map(account);
+
+                // apply changes to the DTO
+                accountPatchDocument.ApplyTo(acc);
+
+                // map the DTO with applied changes to the entity, & update
+                var result = _repo.Update(AccountMapper.Map(acc));
+
+                if (result.Status == RepositoryActionStatus.Updated)
+                {
+                    // map to dto
+                    var updatedExpense = AccountMapper.Map(result.Entity);
+                    return Ok(updatedExpense);
+                }
+
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Accounts/5
@@ -93,10 +196,21 @@ namespace CustomerPayments.Customers.Controllers
         {
             try
             {
-                _repo.Remove(id);
-                return StatusCode(HttpStatusCode.NoContent);
+
+                var result = _repo.Remove(id);
+
+                if (result.Status == RepositoryActionStatus.Deleted)
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+                else if (result.Status == RepositoryActionStatus.NotFound)
+                {
+                    return NotFound();
+                }
+
+                return BadRequest();
             }
-            catch
+            catch (Exception)
             {
                 return InternalServerError();
             }

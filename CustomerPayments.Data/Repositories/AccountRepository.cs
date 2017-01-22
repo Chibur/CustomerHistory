@@ -12,7 +12,7 @@ using CustomerPayments;
 
 namespace CustomerPayments.Data.Repositories
 {
-    public class AccountRepository: IRepository<Account>
+    public class AccountRepository
     {
         private readonly CustomerPaymentsContext _context;
         public AccountRepository()
@@ -29,28 +29,92 @@ namespace CustomerPayments.Data.Repositories
             var account = _context.Accounts.AsNoTracking().FirstOrDefault(c => c.Id == id);
             return account;
         }
-
+        public Account Find(int id, int customerId)
+        {
+            return _context.Accounts.AsNoTracking()
+                .FirstOrDefault(a => a.CustomerId == customerId && a.Id == id);
+        }
         public IEnumerable<Account> FindAll()
         {
             return _context.Accounts.AsNoTracking();
         }
 
-        public void Add(Account account)
+        public IEnumerable<Account> FindAll(int customerId)
         {
-            _context.Accounts.Add(account);
-            _context.SaveChanges();
+            return _context.Accounts.AsNoTracking()
+                .Where(a => a.CustomerId == customerId);
         }
 
-        public void Update(Account account)
+        public RepositoryActionResult<Account> Add(Account account)
         {
-            _context.Entry(account).State = EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                _context.Accounts.Add(account);
+                var result = _context.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<Account>(account, RepositoryActionStatus.Created);
+                }
+                else
+                {
+                    return new RepositoryActionResult<Account>(account, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<Account>(null, RepositoryActionStatus.Error, ex);
+            }
+           
         }
 
-        public void Remove(int id)
+        public RepositoryActionResult<Account> Update(Account account)
         {
-            _context.Accounts.Remove(_context.Accounts.Find(id));
-            _context.SaveChanges();
+            try
+            {
+                _context.Entry(account).State = EntityState.Modified;
+                var existingAccount = _context.Accounts.FirstOrDefault(a => a.Id == account.Id);
+               
+                if (existingAccount == null)
+                {
+                    return new RepositoryActionResult<Account>(account, RepositoryActionStatus.NotFound);
+                }
+                _context.Entry(account).State = EntityState.Detached;
+                _context.Accounts.Attach(account);
+                _context.Entry(account).State = EntityState.Modified;
+                var result = _context.SaveChanges();
+                if(result>0)
+                {
+                    return new RepositoryActionResult<Account>(account, RepositoryActionStatus.Updated);
+                }
+                else
+                {
+                    return new RepositoryActionResult<Account>(account, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<Account>(null, RepositoryActionStatus.Error, ex);
+            }
+           
+        }
+
+        public RepositoryActionResult<Account> Remove(int id)
+        {
+            try
+            {
+                var account = _context.Accounts.Where(e => e.Id == id).FirstOrDefault();
+                if (account != null)
+                {
+                    _context.Accounts.Remove(account);
+                    _context.SaveChanges();
+                    return new RepositoryActionResult<Account>(null, RepositoryActionStatus.Deleted);
+                }
+                return new RepositoryActionResult<Account>(null, RepositoryActionStatus.NotFound);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<Account>(null, RepositoryActionStatus.Error, ex);
+            }
         }
     }
 

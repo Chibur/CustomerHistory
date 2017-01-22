@@ -93,14 +93,16 @@ namespace CustomerPayments.Data.Helpers
                     Amount = 100,
                     Discription = "Test",
                     BeneficiaryAccount = "65434564324164",
-                    SenderAccount = Account1.AccountNumber
+                    SenderAccount = Account2.AccountNumber,
+                    Account = Account2
                 });
                 context.Transactions.Add(new Transaction()
                 {
                     Amount = 200,
                     Discription = "Test transaction",
                     BeneficiaryAccount = "354354324657621",
-                    SenderAccount = Account1.AccountNumber
+                    SenderAccount = Account1.AccountNumber,
+                    Account = Account1
                 });
 
                 context.SaveChanges();
