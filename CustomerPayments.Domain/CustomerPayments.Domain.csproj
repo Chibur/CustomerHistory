@@ -49,8 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\IEntity.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
     <Compile Include="Entities\Account.cs" />

@@ -1,37 +1,36 @@
-﻿using CustomerPayments.Data.Mappers;
-using CustomerPayments.Data.Repositories;
-using CustomerPayments.Data.Repositories.Generic;
-using CustomerPayments.Domain.Entities;
-using Marvin.JsonPatch;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerPayments;
+using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Data.Mappers;
+using CustomerPayments.Domain.Entities;
+using CustomerPayments.Data.Repositories;
+using Marvin.JsonPatch;
 
 namespace CustomerPayments.Customers.Controllers
 {
     [RoutePrefix("api")]
-    public class TransactionsController : ApiController
+    public class AccountsController : ApiController
     {
-        private readonly TransactionRepository _repo;
-
-        public TransactionsController(TransactionRepository repo)
+        private readonly AccountRepository _repo;
+        public AccountsController (AccountRepository repo)
         {
             _repo = repo;
         }
-
-        // GET: api/Transactions
+        // GET: api/Accounts
         [HttpGet]
-        [Route("Transactions")]
+        [Route("Accounts")]
         public IHttpActionResult Get()
         {
             try
             {
-                var transactions = _repo.FindAll();
+                var accounts = _repo.FindAll();
 
-                return Ok(transactions.Select(t => TransactionMapper.Map(t)));
+                return Ok(accounts.Select(a => AccountMapper.Map(a)));
             }
             catch
             {
@@ -39,15 +38,16 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
+        // GET: api/Accounts
         [HttpGet]
-        [Route("Accounts/{accountId}/Transactions")]
-        public IHttpActionResult GetByAccount(int accountId)
+        [Route("Customers/{customerId}/Accounts")]
+        public IHttpActionResult GetByCustomer(int customerId)
         {
             try
             {
-                var transactions = _repo.FindAll(accountId);
+                var accounts = _repo.FindAll(customerId);
 
-                return Ok(transactions.Select(t => TransactionMapper.Map(t)));
+                return Ok(accounts.Select(a => AccountMapper.Map(a)));
             }
             catch
             {
@@ -55,31 +55,29 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
-        // GET: api/Transactions/5
+        // GET: api/Accounts/5
         [HttpGet]
-        [Route("Transactions/{id}")]
+        [Route("Accounts/{id}")]
         public IHttpActionResult Get(int id)
         {
             try
             {
-                var transaction = _repo.Find(id);
-                return Ok(TransactionMapper.Map(transaction));
+                var account = _repo.Find(id);
+                return Ok(AccountMapper.Map(account));
             }
             catch
             {
                 return NotFound();
             }
         }
-
-        // GET: api/Transactions/5
         [HttpGet]
-        [Route("Accounts/{accountId}/Transactions/{id}")]
-        public IHttpActionResult Get(int id, int accountId)
+        [Route("Customers/{customerId}/Accounts/{id}")]
+        public IHttpActionResult Get(int id, int customerId)
         {
             try
             {
-                var transactions = _repo.FindAll(accountId);
-                return Ok(TransactionMapper.Map(transactions.ToList().ElementAt(id+1))); // TODO find another way as it would not work with big set of data
+                var accounts = _repo.FindAll(customerId);
+                return Ok(AccountMapper.Map(accounts.ToList().ElementAt(id-1))); // TODO // TODO find another way as it would not work with big set of data
             }
             catch
             {
@@ -87,53 +85,54 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
-        // POST: api/Transactions
+
+        // POST: api/Accounts
         [HttpPost]
-        [Route("Transactions")]
-        public IHttpActionResult Post([FromBody]DTO.Transaction transaction)
+        [Route("Accounts")]
+        public IHttpActionResult Post([FromBody]DTO.Account account)
         {
             try
             {
-                if (transaction == null)
+                if (account == null)
                     BadRequest();
 
-                var trns = TransactionMapper.Map(transaction);
-                var result = _repo.Add(trns);
+                var acc = AccountMapper.Map(account);
+                var result = _repo.Add(acc);
                 if (result.Status == RepositoryActionStatus.Created)
                 {
-                    var newAcc = TransactionMapper.Map(result.Entity);
-                    return Created<DTO.Transaction>(Request.RequestUri + "/" + transaction.Id.ToString(), newAcc);
+                    var newAcc = AccountMapper.Map(result.Entity);
+                    return Created<DTO.Account>(Request.RequestUri + "/" + account.Id.ToString(), newAcc);
                 }
                 return BadRequest();
-
+                
             }
             catch
             {
-                return InternalServerError();
+               return InternalServerError();
             }
         }
 
-        // PUT: api/Transactions/5
-        [Route("Transactions/{id}")]
+        // PUT: api/Accounts/5
+        [Route("Accounts/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Transaction transaction)
+        public IHttpActionResult Put(int id, [FromBody]DTO.Account account)
         {
             try
             {
-                if (transaction == null)
+                if (account == null)
                 {
                     return BadRequest();
                 }
 
                 // map
-                var trns = TransactionMapper.Map(transaction);
+                var acc = AccountMapper.Map(account);
 
-                var result = _repo.Update(trns);
+                var result = _repo.Update(acc);
                 if (result.Status == RepositoryActionStatus.Updated)
                 {
                     // map to dto
-                    var updatedTransaction = TransactionMapper.Map(result.Entity);
-                    return Ok(updatedTransaction);
+                    var updatedAccount = AccountMapper.Map(result.Entity);
+                    return Ok(updatedAccount);
                 }
                 else if (result.Status == RepositoryActionStatus.NotFound)
                 {
@@ -148,37 +147,37 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
-        [Route("Transactions/{id}")]
+        [Route("Accounts/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Transaction> transactionPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Account> accountPatchDocument)
         {
             try
             {
                 // find 
-                if (transactionPatchDocument == null)
+                if (accountPatchDocument == null)
                 {
                     return BadRequest();
                 }
 
-                var transaction = _repo.Find(id);
-                if (transaction == null)
+                var account = _repo.Find(id);
+                if (account == null)
                 {
                     return NotFound();
                 }
 
                 //// map
-                var trns = TransactionMapper.Map(transaction);
+                var acc = AccountMapper.Map(account);
 
                 // apply changes to the DTO
-                transactionPatchDocument.ApplyTo(trns);
+                accountPatchDocument.ApplyTo(acc);
 
                 // map the DTO with applied changes to the entity, & update
-                var result = _repo.Update(TransactionMapper.Map(trns));
+                var result = _repo.Update(AccountMapper.Map(acc));
 
                 if (result.Status == RepositoryActionStatus.Updated)
                 {
                     // map to dto
-                    var updatedExpense = TransactionMapper.Map(result.Entity);
+                    var updatedExpense = AccountMapper.Map(result.Entity);
                     return Ok(updatedExpense);
                 }
 
@@ -190,8 +189,8 @@ namespace CustomerPayments.Customers.Controllers
             }
         }
 
-        // DELETE: api/Transactions/5
-        [Route("Transactions/{id}")]
+        // DELETE: api/Accounts/5
+        [Route("Accounts/{id}")]
         [HttpDelete]
         public IHttpActionResult delete(int id)
         {
