@@ -14,66 +14,27 @@ namespace CustomerPayments.Host.Controllers
     [RoutePrefix("api")]
     public class TransactionsController : ApiController
     {
-        private readonly TransactionRepository _repo;
+        private readonly GenericRepository<Transaction> _repo;
 
-        public TransactionsController(TransactionRepository repo)
+        public TransactionsController(GenericRepository<Transaction> repo)
         {
             _repo = repo;
         }
 
-        // GET: api/Accounts
         [HttpGet]
-        [Route("Accounts/{accountId}/Transactions")]
-        [Route("Transactions")]
-        public IHttpActionResult Get(int? customerId = null)
+        [Route("Transactions/{accountId}")]
+        public IHttpActionResult Get(int? accountId)
         {
             try
             {
-                IEnumerable<Transaction> transactions = null;
-                if (customerId == null)
-                    transactions = _repo.FindAll();
-                else
-                {
-                    transactions = _repo.FindAll(customerId.Value);
-                }
-                return Ok(transactions.Select(t => TransactionMapper.Map(t)));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-
-        // GET: api/Accounts/5
-        [HttpGet]
-        [Route("Accounts/{accountId}/Transactions/{id}")]
-        [Route("Transactions/{id}")]
-        public IHttpActionResult Get(int id, int? accountId = null)
-        {
-            try
-            {
-                Transaction transaction = null;
                 if (accountId == null)
-                {
-                    transaction = _repo.Find(id);
-                }
-                else
-                {
-                    var transactions = _repo.FindAll(accountId.Value);
-                    if (transactions != null)
-                    {
-                        transaction = transactions.ToList().ElementAt(id - 1);
-                    }
+                    BadRequest();
 
-                }
-                if (transaction != null)
-                {
-                    return Ok(TransactionMapper.Map(transaction));
-                }
-                else
-                {
-                    return NotFound(); // TODO find another way as it would not work with big set of data
-                }
+                var ts = _repo.FindBy(t => t.AccountId == accountId);
+                if (ts == null)
+                    return NotFound();
+
+                return Ok(ts.Select(t => TransactionMapper.Map(t)));
             }
             catch
             {
@@ -81,25 +42,18 @@ namespace CustomerPayments.Host.Controllers
             }
         }
 
-        // POST: api/Transactions
         [HttpPost]
         [Route("Transactions")]
-        public IHttpActionResult Post([FromBody]DTO.Transaction transaction)
+        public IHttpActionResult Post([FromBody]DTO.Transaction t)
         {
             try
             {
-                if (transaction == null)
+                if (t == null)
                     return BadRequest();
 
-                var trns = TransactionMapper.Map(transaction);
-                var result = _repo.Add(trns);
-                if (result.Status == RepositoryActionStatus.Created)
-                {
-                    var newAcc = TransactionMapper.Map(result.Entity);
-                    return Created<DTO.Transaction>(Request.RequestUri + "/" + transaction.Id.ToString(), newAcc);
-                }
-                return BadRequest();
-
+                var entityT = TransactionMapper.Map(t);
+                _repo.Insert(entityT);
+                return Created<DTO.Transaction>("Transactions", t); // maybe Ok() instead?
             }
             catch
             {
@@ -107,34 +61,23 @@ namespace CustomerPayments.Host.Controllers
             }
         }
 
-        // PUT: api/Transactions/5
         [Route("Transactions/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Transaction transaction)
+        public IHttpActionResult Put(int id, [FromBody]DTO.Transaction t)
         {
             try
             {
-                if (transaction == null)
+                if (t == null)
                 {
                     return BadRequest();
                 }
-
                 // map
-                var trns = TransactionMapper.Map(transaction);
-
-                var result = _repo.Update(trns);
-                if (result.Status == RepositoryActionStatus.Updated)
-                {
-                    // map to dto
-                    var updatedTransaction = TransactionMapper.Map(result.Entity);
-                    return Ok(updatedTransaction);
-                }
-                else if (result.Status == RepositoryActionStatus.NotFound)
-                {
+                var entityT = TransactionMapper.Map(t);
+                if (_repo.FindById(id) == null)
                     return NotFound();
-                }
 
-                return BadRequest();
+                _repo.Update(entityT);
+                return Ok(t);
             }
             catch (Exception)
             {
@@ -144,39 +87,28 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Transactions/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Transaction> transactionPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Transaction> tPatchDocument)
         {
             try
             {
                 // find 
-                if (transactionPatchDocument == null)
+                if (tPatchDocument == null)
                 {
                     return BadRequest();
                 }
-
-                var transaction = _repo.Find(id);
-                if (transaction == null)
+                var entityT = _repo.FindById(id);
+                if (entityT == null)
                 {
                     return NotFound();
                 }
-
                 //// map
-                var trns = TransactionMapper.Map(transaction);
-
+                var t = TransactionMapper.Map(entityT);
                 // apply changes to the DTO
-                transactionPatchDocument.ApplyTo(trns);
-
+                tPatchDocument.ApplyTo(t);
                 // map the DTO with applied changes to the entity, & update
-                var result = _repo.Update(TransactionMapper.Map(trns));
-
-                if (result.Status == RepositoryActionStatus.Updated)
-                {
-                    // map to dto
-                    var updatedExpense = TransactionMapper.Map(result.Entity);
-                    return Ok(updatedExpense);
-                }
-
-                return BadRequest();
+                _repo.Update(TransactionMapper.Map(t));
+                // map to dto
+                return Ok(t);
             }
             catch (Exception)
             {
@@ -184,26 +116,18 @@ namespace CustomerPayments.Host.Controllers
             }
         }
 
-        // DELETE: api/Transactions/5
         [Route("Transactions/{id}")]
         [HttpDelete]
-        public IHttpActionResult delete(int id)
+        public IHttpActionResult delete(int? id)
         {
             try
             {
+                if (id == null)
+                    BadRequest();
 
-                var result = _repo.Remove(id);
-
-                if (result.Status == RepositoryActionStatus.Deleted)
-                {
-                    return StatusCode(HttpStatusCode.NoContent);
-                }
-                else if (result.Status == RepositoryActionStatus.NotFound)
-                {
-                    return NotFound();
-                }
-
-                return BadRequest();
+                if (_repo.FindById(id.Value) != null)
+                    _repo.Delete(id.Value);
+                return StatusCode(HttpStatusCode.NoContent);
             }
             catch (Exception)
             {

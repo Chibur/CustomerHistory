@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomerPayments.Domain.Repositories
+namespace CustomerPayments.Domain.Interfaces
 {
     public interface IEntity
     {

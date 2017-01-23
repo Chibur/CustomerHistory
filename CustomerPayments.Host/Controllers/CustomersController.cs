@@ -11,71 +11,73 @@ using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments;
 using Marvin.JsonPatch;
-
 namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class CustomersController : ApiController
     {
-        private readonly CustomerRepository _repo;
+        private readonly GenericRepository<Customer> _repo;
 
-        public CustomersController(CustomerRepository repo)
+        public CustomersController(GenericRepository<Customer> repo)
         {
             _repo = repo;
         }
+        // TODO implement exception logging
 
-        // GET: api/Customers
-        [HttpGet]
-        [Route("Customers")]
-        public IHttpActionResult Get()
-        {
-            try
-            {
-                var customers = _repo.FindAll();
 
-                return Ok(customers.Select(c => CustomerMapper.Map(c)));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
+        //// GET: api/Customers // not necessary
+        //[HttpGet]
+        //[Route("Customers")]
+        //public IHttpActionResult Get()
+        //{
+        //    try
+        //    {
+        //        var c = _repo.FindAll();
+                  //if (c == null)
+                  //  NotFound();
+        //        return Ok(customers.Select(c => CustomerMapper.Map(c)));
+        //    }
+        //    catch
+        //    {
+        //        return InternalServerError();
+        //    }
+        //}
 
         // GET: api/Customers/5
         [HttpGet]
         [Route("Customers/{id}")]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int? id)
         {
             try
             {
-                var customer = _repo.Find(id);
+                if (id == null)
+                    BadRequest();
+
+                var customer = _repo.FindById((int)id);
+                if (customer == null)
+                    return NotFound();
+
                 return Ok(CustomerMapper.Map(customer));
             }
             catch
             {
-                return NotFound();
+                return InternalServerError();
             }
         }
 
         // POST: api/Customers
         [HttpPost]
         [Route("Customers")]
-        public IHttpActionResult Post([FromBody]DTO.Customer customer)
+        public IHttpActionResult Post([FromBody]DTO.Customer c)
         {
             try
             {
-                if (customer == null)
+                if (c == null)
                    return BadRequest();
 
-                var cst = CustomerMapper.Map(customer);
-                var result = _repo.Add(cst);
-                if (result.Status == RepositoryActionStatus.Created)
-                {
-                    var newAcc = CustomerMapper.Map(result.Entity);
-                    return Created<DTO.Customer>(Request.RequestUri + "/" + customer.Id.ToString(), newAcc);
-                }
-                return BadRequest();
-
+                var entityC = CustomerMapper.Map(c);
+                _repo.Insert(entityC);
+                return Created<DTO.Customer>("Customers", c); // maybe Ok() instead?
             }
             catch
             {
@@ -86,31 +88,21 @@ namespace CustomerPayments.Host.Controllers
         // PUT: api/Customers/5
         [Route("Customers/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Customer customer)
+        public IHttpActionResult Put(int id, [FromBody]DTO.Customer c)
         {
             try
             {
-                if (customer == null)
+                if (c == null)
                 {
                     return BadRequest();
                 }
-
                 // map
-                var cst = CustomerMapper.Map(customer);
-
-                var result = _repo.Update(cst);
-                if (result.Status == RepositoryActionStatus.Updated)
-                {
-                    // map to dto
-                    var updatedCustomer = CustomerMapper.Map(result.Entity);
-                    return Ok(updatedCustomer);
-                }
-                else if (result.Status == RepositoryActionStatus.NotFound)
-                {
+                var entityC = CustomerMapper.Map(c);
+                if (_repo.FindById(id) == null)
                     return NotFound();
-                }
-
-                return BadRequest();
+                                       
+                _repo.Update(entityC);
+                return Ok(c);
             }
             catch (Exception)
             {
@@ -120,39 +112,28 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Customers/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Customer> customerPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Customer> cPatchDocument)
         {
             try
             {
                 // find 
-                if (customerPatchDocument == null)
+                if (cPatchDocument == null)
                 {
                     return BadRequest();
                 }
-
-                var customer = _repo.Find(id);
-                if (customer == null)
+                var entityC = _repo.FindById(id);
+                if (entityC == null)
                 {
                     return NotFound();
                 }
-
                 //// map
-                var cst = CustomerMapper.Map(customer);
-
+                var c = CustomerMapper.Map(entityC);
                 // apply changes to the DTO
-                customerPatchDocument.ApplyTo(cst);
-
+                cPatchDocument.ApplyTo(c);
                 // map the DTO with applied changes to the entity, & update
-                var result = _repo.Update(CustomerMapper.Map(cst));
-
-                if (result.Status == RepositoryActionStatus.Updated)
-                {
-                    // map to dto
-                    var updatedExpense = CustomerMapper.Map(result.Entity);
-                    return Ok(updatedExpense);
-                }
-
-                return BadRequest();
+                _repo.Update(CustomerMapper.Map(c));
+                // map to dto
+                return Ok(c);
             }
             catch (Exception)
             {
@@ -163,23 +144,16 @@ namespace CustomerPayments.Host.Controllers
         // DELETE: api/Customers/5
         [Route("Customers/{id}")]
         [HttpDelete]
-        public IHttpActionResult delete(int id)
+        public IHttpActionResult delete(int? id)
         {
             try
             {
+                if (id == null)
+                    BadRequest();
 
-                var result = _repo.Remove(id);
-
-                if (result.Status == RepositoryActionStatus.Deleted)
-                {
-                    return StatusCode(HttpStatusCode.NoContent);
-                }
-                else if (result.Status == RepositoryActionStatus.NotFound)
-                {
-                    return NotFound();
-                }
-
-                return BadRequest();
+                if (_repo.FindById(id.Value) != null)
+                    _repo.Delete(id.Value);
+                return StatusCode(HttpStatusCode.NoContent);
             }
             catch (Exception)
             {

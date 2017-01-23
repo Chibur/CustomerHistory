@@ -11,7 +11,7 @@ using CustomerPayments.Domain.Interfaces;
 namespace CustomerPayments.Domain.Entities
 {
     [Table("Accounts")]
-    public class Account: IModificationHistory
+    public class Account: IModificationHistory, IEntity
     {
         public Account()
         {

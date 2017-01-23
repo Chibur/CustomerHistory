@@ -11,7 +11,7 @@ using CustomerPayments.Domain.Interfaces;
 namespace CustomerPayments.Domain.Entities
 {
     [Table("Transactions")]
-    public class Transaction: IModificationHistory
+    public class Transaction: IModificationHistory, IEntity
     {
         public int Id { get; set; }
 
