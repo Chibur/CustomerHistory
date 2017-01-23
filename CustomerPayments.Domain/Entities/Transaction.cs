@@ -34,6 +34,10 @@ namespace CustomerPayments.Domain.Entities
         [ForeignKey("AccountId")]
         public Account Account { get; set; }
 
+        public int? CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
+        public Customer Customer { get; set; }
+
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 

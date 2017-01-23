@@ -5,12 +5,12 @@ using System.Linq;
 using CustomerPayments.Domain.Interfaces;
 using CustomerPayments.Domain.Entities;
 
-namespace CustomerPayments.Data.Repositories.Generic
+namespace CustomerPayments.Data.Repositories
 {
     public class CustomerPaymentsContext : DbContext
     {
 
-      //  public CustomerPaymentsContext(string str) : base(str) { }
+        public CustomerPaymentsContext() : base("name = CustomerPaymentContext") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

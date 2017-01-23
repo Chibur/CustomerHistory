@@ -5,7 +5,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
-using CustomerPayments.Data.Repositories.Generic;
+using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments;

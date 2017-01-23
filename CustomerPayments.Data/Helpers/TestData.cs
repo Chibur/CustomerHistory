@@ -1,12 +1,10 @@
-﻿using CustomerPayments.Data.Repositories.Generic;
+﻿using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomerPayments.Data.Helpers
 {
@@ -94,7 +92,8 @@ namespace CustomerPayments.Data.Helpers
                     Discription = "Test",
                     BeneficiaryAccount = "65434564324164",
                     SenderAccount = Account2.AccountNumber,
-                    Account = Account2
+                    Account = Account2,
+                    Customer = Customer2
                 });
                 context.Transactions.Add(new Transaction()
                 {
@@ -102,7 +101,8 @@ namespace CustomerPayments.Data.Helpers
                     Discription = "Test transaction",
                     BeneficiaryAccount = "354354324657621",
                     SenderAccount = Account1.AccountNumber,
-                    Account = Account1
+                    Account = Account1,
+                    Customer = Customer1
                 });
 
                 context.SaveChanges();

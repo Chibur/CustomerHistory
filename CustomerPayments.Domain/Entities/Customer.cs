@@ -17,6 +17,7 @@ namespace CustomerPayments.Domain.Entities
         public Customer()
         {
             Accounts = new List<Account>();
+            Transactions = new List<Transaction>();
         }
 
         public int Id { get; set; }
@@ -39,6 +40,7 @@ namespace CustomerPayments.Domain.Entities
         public DateTime Birthdate { get; set; }
 
         public List<Account> Accounts { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
