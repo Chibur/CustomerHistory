@@ -6,7 +6,6 @@ using System.Net;
 using System.Web.Http;
 using System.Configuration;
 using Newtonsoft.Json;
-using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Mappers;

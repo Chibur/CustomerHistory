@@ -9,7 +9,7 @@ using System.Web.Http;
 using Castle.MicroKernel.Lifestyle;
 using Castle.MicroKernel.SubSystems.Configuration;
 
-namespace CustomerPayments.Customers.DependancyResolution
+namespace CustomerPayments.Host.DependancyResolution
 {
     public class WindsorDependencyResolver : IDependencyResolver
     {

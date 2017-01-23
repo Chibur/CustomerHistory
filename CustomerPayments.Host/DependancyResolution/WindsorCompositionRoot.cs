@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 
-namespace CustomerPayments.Customers.DependancyResolution
+namespace CustomerPayments.Host.DependancyResolution
 {
     public class WindsorCompositionRoot : IHttpControllerActivator
     {

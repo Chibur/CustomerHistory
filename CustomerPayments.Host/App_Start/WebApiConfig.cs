@@ -7,7 +7,7 @@ using CustomerPayments.Host.Filters;
 using Castle.Windsor;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Dispatcher;
-using CustomerPayments.Customers.DependancyResolution;
+using CustomerPayments.Host.DependancyResolution;
 
 namespace CustomerPayments.Host
 {

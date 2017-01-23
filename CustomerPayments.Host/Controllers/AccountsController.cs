@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http;
 using System.Web.Http;
 using CustomerPayments;
-using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Repositories;
 using Marvin.JsonPatch;
 
-namespace CustomerPayments.Customers.Controllers
+namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class AccountsController : ApiController
@@ -25,7 +25,7 @@ namespace CustomerPayments.Customers.Controllers
         // GET: api/Accounts
         [HttpGet]
         [Route("Customers/{customerId}/Accounts")]
-        [Route("Accounts")]
+        [Route("Accounts")] // re
         public IHttpActionResult Get(int? customerId = null)
         {
             try
@@ -76,8 +76,9 @@ namespace CustomerPayments.Customers.Controllers
                     return NotFound(); // TODO find another way as it would not work with big set of data
                 }
             }
-            catch
+            catch(Exception e)
             {
+               // _logger.Log(e);
                 return InternalServerError();
             }
         }

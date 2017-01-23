@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
-namespace CustomerPayments.Customers.DependancyResolution
+namespace CustomerPayments.Host.DependancyResolution
 {
     public class ApiControllersInstaller : IWindsorInstaller
     {

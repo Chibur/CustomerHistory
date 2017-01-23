@@ -2,7 +2,6 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using CustomerPayments.Data.Repositories;
-using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace CustomerPayments.Customers.DependancyResolution
+namespace CustomerPayments.Host.DependancyResolution
 {
     public class RepositoriesInstaller: IWindsorInstaller
     {
@@ -30,8 +29,6 @@ namespace CustomerPayments.Customers.DependancyResolution
                 Component.For<AccountRepository>().LifestylePerWebRequest());
             container.Register(
                 Component.For<TransactionRepository>().LifestylePerWebRequest());
-
-
             container.Register(
                 Component.For<CustomerPaymentsContext>().LifestylePerWebRequest());
         }

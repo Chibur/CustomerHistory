@@ -2,7 +2,7 @@
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using CustomerPayments.Customers.DependancyResolution;
+using CustomerPayments.Host.DependancyResolution;
 using System.Web.Http;
 
 namespace CustomerPayments.Host

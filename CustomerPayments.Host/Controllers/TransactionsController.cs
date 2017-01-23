@@ -1,7 +1,6 @@
 ﻿using CustomerPayments;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments.Data.Repositories;
-using CustomerPayments.Data.Repositories.Generic;
 using CustomerPayments.Domain.Entities;
 using Marvin.JsonPatch;
 using System;
@@ -10,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 
-namespace CustomerPayments.Customers.Controllers
+namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class TransactionsController : ApiController
