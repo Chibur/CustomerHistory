@@ -59,11 +59,9 @@
       <DependentUpon>201701230705188_transactionUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repositories\CustomerPaymentsContext.cs" />
+    <Compile Include="Repository\CustomerPaymentsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\RepositoryActionCode.cs" />
-    <Compile Include="Repositories\RepositoryActionResult.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

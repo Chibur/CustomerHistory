@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using CustomerPayments.Domain.Interfaces;
 using CustomerPayments.Domain.Entities;
+using CustomerPayments.Domain.Interfaces;
 
-namespace CustomerPayments.Data.Repositories
+namespace CustomerPayments.Data.Repository
 {
     public class CustomerPaymentsContext : DbContext
     {

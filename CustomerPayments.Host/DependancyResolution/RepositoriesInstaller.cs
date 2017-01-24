@@ -1,13 +1,13 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using CustomerPayments.Data.Repository;
 
 namespace CustomerPayments.Host.DependancyResolution
 {

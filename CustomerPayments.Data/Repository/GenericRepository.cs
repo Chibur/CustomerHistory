@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CustomerPayments.Data.Repositories;
-using CustomerPayments.Domain.Interfaces;
 using System.Linq.Expressions;
+using CustomerPayments.Domain.Interfaces;
 
-namespace CustomerPayments.Data.Repositories
+namespace CustomerPayments.Data.Repository
 {
     public class GenericRepository<T> where T: class, IEntity
     {

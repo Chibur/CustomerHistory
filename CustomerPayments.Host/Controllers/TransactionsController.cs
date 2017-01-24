@@ -1,6 +1,5 @@
 ﻿using CustomerPayments;
 using CustomerPayments.Data.Mappers;
-using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using Marvin.JsonPatch;
 using System;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using CustomerPayments.Data.Repository;
 
 namespace CustomerPayments.Host.Controllers
 {

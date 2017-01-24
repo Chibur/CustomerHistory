@@ -1,4 +1,5 @@
 using CustomerPayments.Data.Helpers;
+using CustomerPayments.Data.Repository;
 
 namespace CustomerPayments.Data.Migrations
 {
@@ -7,14 +8,14 @@ namespace CustomerPayments.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CustomerPayments.Data.Repositories.CustomerPaymentsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CustomerPaymentsContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CustomerPayments.Data.Repositories.CustomerPaymentsContext context)
+        protected override void Seed(CustomerPaymentsContext context)
         {
             TestData.NewDbWithSeed();
             //  This method will be called after migrating to the latest version.

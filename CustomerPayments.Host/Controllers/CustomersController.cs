@@ -6,10 +6,10 @@ using System.Net;
 using System.Web.Http;
 using System.Configuration;
 using Newtonsoft.Json;
-using CustomerPayments.Data.Repositories;
 using CustomerPayments.Domain.Entities;
 using CustomerPayments.Data.Mappers;
 using CustomerPayments;
+using CustomerPayments.Data.Repository;
 using Marvin.JsonPatch;
 namespace CustomerPayments.Host.Controllers
 {

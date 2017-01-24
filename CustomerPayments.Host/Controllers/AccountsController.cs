@@ -5,8 +5,8 @@ using System.Net;
 using System.Web.Http;
 using CustomerPayments;
 using CustomerPayments.Data.Mappers;
+using CustomerPayments.Data.Repository;
 using CustomerPayments.Domain.Entities;
-using CustomerPayments.Data.Repositories;
 using Marvin.JsonPatch;
 
 namespace CustomerPayments.Host.Controllers

@@ -1,10 +1,10 @@
-﻿using CustomerPayments.Data.Repositories;
-using CustomerPayments.Domain.Entities;
+﻿using CustomerPayments.Domain.Entities;
 using CustomerPayments.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using CustomerPayments.Data.Repository;
 
 namespace CustomerPayments.Data.Helpers
 {
