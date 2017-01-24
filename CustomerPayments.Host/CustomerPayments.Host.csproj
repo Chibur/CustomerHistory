@@ -105,9 +105,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext.mdf" />
-    <Content Include="App_Data\CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext_log.ldf">
-      <DependentUpon>CustomerPayments.Data.Repositories.Generic.CustomerPaymentsContext.mdf</DependentUpon>
+    <Content Include="App_Data\CustomerPayments.Data.CustomerPaymentsContext.mdf" />
+    <Content Include="App_Data\CustomerPayments.Data.CustomerPaymentsContext_log.ldf">
+      <DependentUpon>CustomerPayments.Data.CustomerPaymentsContext.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

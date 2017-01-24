@@ -59,7 +59,7 @@ namespace CustomerPayments.Host.Controllers
 
                 return Ok(CustomerMapper.Map(customer));
             }
-            catch
+            catch (Exception ex)
             {
                 return InternalServerError();
             }
@@ -144,7 +144,7 @@ namespace CustomerPayments.Host.Controllers
         // DELETE: api/Customers/5
         [Route("Customers/{id}")]
         [HttpDelete]
-        public IHttpActionResult delete(int? id)
+        public IHttpActionResult Delete(int? id)
         {
             try
             {
