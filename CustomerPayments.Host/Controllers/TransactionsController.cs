@@ -8,6 +8,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using CustomerPayments.Data.Repository;
+using AutoMapper;
+using CustomerPayments.DTO;
 
 namespace CustomerPayments.Host.Controllers
 {
@@ -15,10 +17,12 @@ namespace CustomerPayments.Host.Controllers
     public class TransactionsController : ApiController
     {
         private readonly GenericRepository<Transaction> _repo;
+        private readonly IMapper _mapper;
 
-        public TransactionsController(GenericRepository<Transaction> repo)
+        public TransactionsController(GenericRepository<Transaction> repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -34,7 +38,7 @@ namespace CustomerPayments.Host.Controllers
                 if (ts == null)
                     return NotFound();
 
-                return Ok(ts.Select(t => TransactionMapper.Map(t)));
+                return Ok(ts.Select(t => _mapper.Map<TransactionDTO>(t)));
             }
             catch
             {
@@ -44,16 +48,16 @@ namespace CustomerPayments.Host.Controllers
 
         [HttpPost]
         [Route("Transactions")]
-        public IHttpActionResult Post([FromBody]DTO.Transaction t)
+        public IHttpActionResult Post([FromBody]TransactionDTO t)
         {
             try
             {
                 if (t == null)
                     return BadRequest();
 
-                var entityT = TransactionMapper.Map(t);
+                var entityT = _mapper.Map<Transaction>(t);
                 _repo.Insert(entityT);
-                return Created<DTO.Transaction>("Transactions", t); // maybe Ok() instead?
+                return Created<TransactionDTO>("Transactions", t); // maybe Ok() instead?
             }
             catch
             {
@@ -63,7 +67,7 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Transactions/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Transaction t)
+        public IHttpActionResult Put(int id, [FromBody]TransactionDTO t)
         {
             try
             {
@@ -72,7 +76,7 @@ namespace CustomerPayments.Host.Controllers
                     return BadRequest();
                 }
                 // map
-                var entityT = TransactionMapper.Map(t);
+                var entityT = _mapper.Map<Transaction>(t);
                 if (_repo.FindById(id) == null)
                     return NotFound();
 
@@ -87,11 +91,10 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Transactions/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Transaction> tPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<TransactionDTO> tPatchDocument)
         {
             try
             {
-                // find 
                 if (tPatchDocument == null)
                 {
                     return BadRequest();
@@ -102,11 +105,11 @@ namespace CustomerPayments.Host.Controllers
                     return NotFound();
                 }
                 //// map
-                var t = TransactionMapper.Map(entityT);
+                var t = _mapper.Map<TransactionDTO>(entityT);
                 // apply changes to the DTO
                 tPatchDocument.ApplyTo(t);
                 // map the DTO with applied changes to the entity, & update
-                _repo.Update(TransactionMapper.Map(t));
+                _repo.Update(_mapper.Map<Transaction>(t));
                 // map to dto
                 return Ok(t);
             }

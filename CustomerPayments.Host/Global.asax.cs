@@ -1,5 +1,4 @@
-﻿
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
+﻿using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using CustomerPayments.Host.DependancyResolution;

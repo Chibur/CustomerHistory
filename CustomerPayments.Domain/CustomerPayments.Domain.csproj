@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IModificationHistory.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Customer.cs" />

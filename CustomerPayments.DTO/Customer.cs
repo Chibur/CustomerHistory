@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomerPayments.DTO
 {
-    public class Customer
+    public class CustomerDTO
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

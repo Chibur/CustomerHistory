@@ -11,16 +11,21 @@ using CustomerPayments.Data.Mappers;
 using CustomerPayments;
 using CustomerPayments.Data.Repository;
 using Marvin.JsonPatch;
+using AutoMapper;
+using CustomerPayments.DTO;
+
 namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class CustomersController : ApiController
     {
         private readonly GenericRepository<Customer> _repo;
+        private readonly IMapper _mapper;
 
-        public CustomersController(GenericRepository<Customer> repo)
+        public CustomersController(GenericRepository<Customer> repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
         // TODO implement exception logging
 
@@ -56,8 +61,9 @@ namespace CustomerPayments.Host.Controllers
                 var customer = _repo.FindById((int)id);
                 if (customer == null)
                     return NotFound();
-
-                return Ok(CustomerMapper.Map(customer));
+              
+                var c = _mapper.Map<CustomerDTO>(customer);
+                return Ok(c);
             }
             catch (Exception ex)
             {
@@ -68,16 +74,18 @@ namespace CustomerPayments.Host.Controllers
         // POST: api/Customers
         [HttpPost]
         [Route("Customers")]
-        public IHttpActionResult Post([FromBody]DTO.Customer c)
+        public IHttpActionResult Post([FromBody]CustomerDTO c)
         {
             try
             {
+                // TODO remove as I have filter for that
                 if (c == null)
-                   return BadRequest();
+                    return BadRequest();
 
-                var entityC = CustomerMapper.Map(c);
+                var entityC = _mapper.Map<Customer>(c);
+                // TODO status code from db
                 _repo.Insert(entityC);
-                return Created<DTO.Customer>("Customers", c); // maybe Ok() instead?
+                return Created<CustomerDTO>("Customers", c); // maybe Ok() instead?
             }
             catch
             {
@@ -88,7 +96,7 @@ namespace CustomerPayments.Host.Controllers
         // PUT: api/Customers/5
         [Route("Customers/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Customer c)
+        public IHttpActionResult Put(int id, [FromBody]CustomerDTO c)
         {
             try
             {
@@ -97,10 +105,10 @@ namespace CustomerPayments.Host.Controllers
                     return BadRequest();
                 }
                 // map
-                var entityC = CustomerMapper.Map(c);
+                var entityC = _mapper.Map<Customer>(c);
                 if (_repo.FindById(id) == null)
                     return NotFound();
-                                       
+
                 _repo.Update(entityC);
                 return Ok(c);
             }
@@ -112,7 +120,7 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Customers/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Customer> cPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<CustomerDTO> cPatchDocument)
         {
             try
             {
@@ -126,13 +134,12 @@ namespace CustomerPayments.Host.Controllers
                 {
                     return NotFound();
                 }
-                //// map
-                var c = CustomerMapper.Map(entityC);
+                // map
+                var c = _mapper.Map<CustomerDTO>(entityC);
                 // apply changes to the DTO
                 cPatchDocument.ApplyTo(c);
                 // map the DTO with applied changes to the entity, & update
-                _repo.Update(CustomerMapper.Map(c));
-                // map to dto
+                _repo.Update(_mapper.Map<Customer>(c));
                 return Ok(c);
             }
             catch (Exception)

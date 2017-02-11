@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomerPayments.DTO
 {
-    public class Transaction
+    public class TransactionDTO
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }

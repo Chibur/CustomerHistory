@@ -8,6 +8,8 @@ using CustomerPayments.Data.Mappers;
 using CustomerPayments.Data.Repository;
 using CustomerPayments.Domain.Entities;
 using Marvin.JsonPatch;
+using AutoMapper;
+using CustomerPayments.DTO;
 
 namespace CustomerPayments.Host.Controllers
 {
@@ -15,9 +17,11 @@ namespace CustomerPayments.Host.Controllers
     public class AccountsController : ApiController
     {
         private readonly GenericRepository<Account> _repo;
-        public AccountsController (GenericRepository<Account> repo)
+        private readonly IMapper _mapper;
+        public AccountsController (GenericRepository<Account> repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -33,7 +37,7 @@ namespace CustomerPayments.Host.Controllers
                 if (accs == null)
                     return NotFound();
 
-                return Ok(accs.Select(a=> AccountMapper.Map(a)));
+                return Ok(accs.Select(a=> _mapper.Map<AccountDTO>(a)));
             }
             catch(Exception e)
             {
@@ -44,16 +48,16 @@ namespace CustomerPayments.Host.Controllers
 
         [HttpPost]
         [Route("Customers")]
-        public IHttpActionResult Post([FromBody]DTO.Account a)
+        public IHttpActionResult Post([FromBody]AccountDTO a)
         {
             try
             {
                 if (a == null)
                     return BadRequest();
 
-                var entityA = AccountMapper.Map(a);
+                var entityA = _mapper.Map<Account>(a);
                 _repo.Insert(entityA);
-                return Created<DTO.Account>("Account", a); // maybe Ok() instead?
+                return Created<AccountDTO>("Account", a); // maybe Ok() instead?
             }
             catch
             {
@@ -63,7 +67,7 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Accounts/{id}")]
         [HttpPut]
-        public IHttpActionResult Put(int id, [FromBody]DTO.Account a)
+        public IHttpActionResult Put(int id, [FromBody]AccountDTO a)
         {
             try
             {
@@ -72,7 +76,7 @@ namespace CustomerPayments.Host.Controllers
                     return BadRequest();
                 }
                 // map
-                var entityA = AccountMapper.Map(a);
+                var entityA = _mapper.Map<Account>(a);
                 if (_repo.FindById(id) == null)
                     return NotFound();
 
@@ -87,7 +91,7 @@ namespace CustomerPayments.Host.Controllers
 
         [Route("Accounts/{id}")]
         [HttpPatch]
-        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<DTO.Account> aPatchDocument)
+        public IHttpActionResult Patch(int id, [FromBody]JsonPatchDocument<AccountDTO> aPatchDocument)
         {
             try
             {
@@ -102,11 +106,11 @@ namespace CustomerPayments.Host.Controllers
                     return NotFound();
                 }
                 //// map
-                var a = AccountMapper.Map(entityA);
+                var a = _mapper.Map<AccountDTO>(entityA);
                 // apply changes to the DTO
                 aPatchDocument.ApplyTo(a);
                 // map the DTO with applied changes to the entity, & update
-                _repo.Update(AccountMapper.Map(a));
+                _repo.Update(_mapper.Map<Account>(a));
                 // map to dto
                 return Ok(a);
             }
