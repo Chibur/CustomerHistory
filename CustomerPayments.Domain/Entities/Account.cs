@@ -21,6 +21,7 @@ namespace CustomerPayments.Domain.Entities
         public int Id { get; set; }
         [StringLength(30)]
         [Required]
+        [Index(IsUnique = true)]
         public string AccountNumber { get; set; }
 
         [Required]

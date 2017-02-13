@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CustomerPayments.Data.Repository;
+using Ploeh.AutoFixture;
 
 namespace CustomerPayments.Data.Helpers
 {
@@ -20,30 +21,42 @@ namespace CustomerPayments.Data.Helpers
                 {
                     return;
                 }
-
+                Fixture fix = new Fixture();
                 var Customer1 = new Customer
                 {
-                    FirstName = "Robin",
+                    FirstName = "Simon",
                     LastName = "Curry",
-                    Birthdate = new DateTime(1980, 1, 1)
+                    Birthdate = new DateTime(1980, 1, 1),
+                    EmailAddress = "Simon@Curry.net",
+                    PhoneNumber = "54613747",
+                    LoginId = "111111"
                 };
                 var Customer2 = new Customer
                 {
                     FirstName = "Carry",
                     LastName = "Armstrong",
-                    Birthdate = new DateTime(1981, 1, 1)
+                    Birthdate = new DateTime(1981, 1, 1),
+                    EmailAddress = "Carry@Armstrong.net",
+                    PhoneNumber = "45645287",
+                    LoginId = "222222"
                 };
                 var Customer3 = new Customer
                 {
                     FirstName = "Terry",
                     LastName = "Milts",
-                    Birthdate = new DateTime(1982, 1, 1)
+                    Birthdate = new DateTime(1982, 1, 1),
+                    EmailAddress = "Terry@Milts.net",
+                    PhoneNumber = "2315492",
+                    LoginId = "333333"
                 };
                 var Customer4 = new Customer
                 {
                     FirstName = "Donny",
                     LastName = "Nots",
-                    Birthdate = new DateTime(1983, 1, 1)
+                    Birthdate = new DateTime(1983, 1, 1),
+                    EmailAddress = "Donny@Nots.net",
+                    PhoneNumber = "546387",
+                    LoginId = "444444"
                 };
                 context.Customers.AddRange(new List<Customer> { Customer1, Customer2, Customer3, Customer4 });
 
@@ -79,7 +92,7 @@ namespace CustomerPayments.Data.Helpers
 
                 var Account5 = new Account
                 {
-                    AccountNumber = "65468765468731",
+                    AccountNumber = "6546876554731",
                     Balance = 2525,
                     AccountType = AccountType.Debit,
                     Customer = Customer4

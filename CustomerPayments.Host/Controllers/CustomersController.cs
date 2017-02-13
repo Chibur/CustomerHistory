@@ -13,16 +13,17 @@ using CustomerPayments.Data.Repository;
 using Marvin.JsonPatch;
 using AutoMapper;
 using CustomerPayments.DTO;
+using CustomerPayments.Domain.Interfaces;
 
 namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class CustomersController : ApiController
     {
-        private readonly GenericRepository<Customer> _repo;
+        private readonly IGenericRepository<Customer> _repo;
         private readonly IMapper _mapper;
 
-        public CustomersController(GenericRepository<Customer> repo, IMapper mapper)
+        public CustomersController(IGenericRepository<Customer> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

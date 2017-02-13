@@ -39,6 +39,14 @@ namespace CustomerPayments.Data.Repository
             return result;
         }
 
+        public class CustomerPaymentsContextConfig : DbConfiguration
+        {
+            public CustomerPaymentsContextConfig()
+            {
+                this.SetDatabaseInitializer(new NullDatabaseInitializer<CustomerPaymentsContext>());
+            }
+        }
+
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Transaction> Transactions { get; set; }

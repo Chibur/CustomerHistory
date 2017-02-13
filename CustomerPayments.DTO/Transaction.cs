@@ -8,7 +8,6 @@ namespace CustomerPayments.DTO
 {
     public class TransactionDTO
     {
-        public int Id { get; set; }
         public decimal Amount { get; set; }
         public string Discription { get; set; }
         public string BeneficiaryAccount { get; set; }

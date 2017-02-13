@@ -10,16 +10,17 @@ using System.Web.Http;
 using CustomerPayments.Data.Repository;
 using AutoMapper;
 using CustomerPayments.DTO;
+using CustomerPayments.Domain.Interfaces;
 
 namespace CustomerPayments.Host.Controllers
 {
     [RoutePrefix("api")]
     public class TransactionsController : ApiController
     {
-        private readonly GenericRepository<Transaction> _repo;
+        private readonly IGenericRepository<Transaction> _repo;
         private readonly IMapper _mapper;
 
-        public TransactionsController(GenericRepository<Transaction> repo, IMapper mapper)
+        public TransactionsController(IGenericRepository<Transaction> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

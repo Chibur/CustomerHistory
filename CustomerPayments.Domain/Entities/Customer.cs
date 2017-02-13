@@ -21,6 +21,12 @@ namespace CustomerPayments.Domain.Entities
 
         public int Id { get; set; }
 
+        [Index(IsUnique = true)]
+        [Column(TypeName = "char")] // to make it fixed size
+        [StringLength(6)]
+        [Required]
+        public string LoginId { get; set; }
+
         [StringLength(50)]
         [Required]
         public string FirstName { get; set; }
